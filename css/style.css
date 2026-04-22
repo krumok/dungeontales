@@ -1,1 +1,113 @@
+/* Importazione Font */
+@import url('https://fonts.googleapis.com/css2?family=Almendra&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&display=swap');
 
+html { color-scheme: light; } 
+
+body { 
+    background-color: #e4dcb7;
+    color: #1a1a1a;
+    font-size: 13pt;
+    margin: 0;
+    padding: 10px;
+    line-height: 1.4;
+    font-family: 'Lora', serif;
+} 
+
+.main-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.img-wrapper {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.img-wrapper img {
+    max-width: 100%;
+    height: auto;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #ccc;
+}
+
+/* Tipografia e Blocchi */
+.tithead {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin: 0.5em 0;
+    text-transform: uppercase;
+}
+
+.descp { 
+    font-size: 1.3rem; 
+    font-family: "Almendra", serif;
+    font-style: italic;
+    font-weight: bold;
+}
+
+.basep {
+    background: white;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 8px 0;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+.basepg {
+    background: #f9f7ef;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 8px 0;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+
+.titsez {
+    color: #b71c1c; /* Un rosso leggermente più profondo per leggibilità */
+    font-weight: bold;
+}
+
+/* Badge dei dadi */
+.tirid { 
+    background: #cfc17f;
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid #b5a662;
+    font-size: 0.85em;
+    color: #222;
+    white-space: nowrap;
+    font-weight: bold;
+    margin-left: 4px;
+}
+
+/* Pulsante Dungeon */
+.dungeon-btn {
+    background: linear-gradient(135deg, #f4e4bc 0%, #d2b48c 100%);
+    color: #4e342e;
+    font-family: "Almendra", serif;
+    font-size: 11pt;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 16px;
+    border: 3px solid #5d4037;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 5px 0;
+}
+
+.dungeon-btn:active {
+    transform: translateY(2px);
+}
+
+/* Mobile Optimization */
+@media screen and (max-width: 600px) {
+    body { font-size: 12pt; }
+    .dungeon-btn { 
+        width: 100%;
+        display: block;
+    }
+}
