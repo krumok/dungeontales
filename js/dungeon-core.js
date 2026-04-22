@@ -46,11 +46,11 @@ function avviaGenerazione(dati) {
 // --- 4. GESTIONE RISORSE (Il tasto Lancia D6) ---
 let countRicerca = 0;
 function lanciaRisorsa(tabella) {
+    if (!tabella) return;
     countRicerca++;
     const r = roll(6);
     const el = document.getElementById('el_risorsa');
     const nuovoRisultato = `<br><b>Ricerca n.${countRicerca}</b>: ${tabella[r-1]} ${getTirid(6, r)}`;
-    
     el.innerHTML = nuovoRisultato + el.innerHTML;
 }
 
