@@ -16,30 +16,41 @@ const selectOne = (arr) => arr[Math.floor(Math.random() * arr.length)];
 // --- 3. LOGICA DI GENERAZIONE ---
 function avviaGenerazione(dati) {
     const outputDiv = document.getElementById('output-area');
+    const imgElement = document.querySelector('.img-wrapper img');
     
-    // Eseguiamo i lanci per le variabili dinamiche
-    const d6 = roll(6);
-    const d4 = roll(4);
-    
-    // Costruiamo l'HTML usando i dati della stanza
+    // Imposta l'immagine se presente
+    if(imgElement && dati.immagine) imgElement.src = dati.immagine;
+
+    // Lanci di dadi per i cancelli e scale
+    const rSX = roll(6);
+    const rDX = roll(6);
+    const cSX = roll(6);
+    const cDX = roll(6);
+    const sG = roll(2); // scale su o giù
+    const sL = roll(4); // livelli scale
+
     let html = `
-        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br>
-        <span class="descp">"${selectOne(dati.descrizione)}"</span></p>
+        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizione)}"</span></p>
         
-        <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>
-        ${dati.illuminazione}</p>
+        <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${dati.illuminazione}</p>
         
         <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>
-        ${dati.note} <br>
-        Oltre il Cancello a sinistra: ${roll(6) === 6 ? selectOne(dati.risorseExtra) : "non c'è niente"} ${getTirid(6, roll(6))}</p>
+        ${dati.note}<br>
+        Oltre il Cancello a sinistra: ${dati.risorsaSX[rSX-1]} ${getTirid(6, rSX)}<br>
+        Oltre il Cancello a destra: ${dati.risorsaDX[rDX-1]} ${getTirid(6, rDX)}</p>
         
         <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>
-        ${selectOne(dati.scale)} di ${selectOne(dati.livelliScale)} ${getTirid(4, d4)}</p>
+        ${dati.scale[sG-1]} di ${dati.livelliScale[sL-1]} ${getTirid(4, sL)}</p>
+
+        <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>
+        Davanti a voi c'è una porta di legno aperta<br>
+        Il cancello a sinistra è ${dati.statoCancello[cSX-1]} ${getTirid(6, cSX)}<br>
+        Il cancello a destra è ${dati.statoCancello[cDX-1]} ${getTirid(6, cDX)}<br><br>
+        ${dati.aprirePorta}
+        </p>
     `;
 
     outputDiv.innerHTML = html;
-    
-    // Salvataggio automatico dopo 1 secondo
     setTimeout(salvaInCronologia, 1000);
 }
 
