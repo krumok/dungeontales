@@ -1,6 +1,6 @@
 // --- 1. PROTEZIONE E SICUREZZA ---
 if (window.self === window.top && !document.referrer.includes("sites.google.com")) {
-    window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
+   // window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
 }
 
 // --- 2. MOTORE LANCI DADI (Sostituisce dtg-subs) ---
