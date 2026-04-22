@@ -1,7 +1,7 @@
 const DATI_STANZA = {
     titolo: "INGRESSO: 1",
     pagina: "p.139",
-    immagine: "URL_DELLA_TUA_IMMAGINE_QUI", // Sostituisci con il link reale
+    immagine: "assets/mappa-ingresso-1.png", // Sostituisci con il link reale
     descrizione: [
         "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
         "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
