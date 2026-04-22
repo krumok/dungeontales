@@ -2,89 +2,126 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Cronologia Ambienti - Dungeon Tales</title>
+    <title>Archivio Esplorazione - Dungeon Tales</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    
     <link rel="stylesheet" href="css/style.css">
     
     <style>
-        .cronologia-item {
-            border-bottom: 2px double #5d4037;
-            padding: 20px 0;
-            margin-bottom: 20px;
-        }
-        .meta-info {
-            font-size: 0.9rem;
-            color: #5d4037;
-            font-weight: bold;
+        body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+        
+        .split-container {
             display: flex;
-            justify-content: space-between;
+            height: 100vh;
+        }
+
+        /* Colonna Sinistra: Elenco */
+        .sidebar {
+            width: 35%;
+            border-right: 3px double #5d4037;
+            background: #e4dcb7;
+            overflow-y: auto;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Colonna Destra: Anteprima */
+        .preview-area {
+            width: 65%;
+            background: #fdfaf0;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .history-card {
+            background: white;
+            padding: 12px;
             margin-bottom: 10px;
-            border-bottom: 1px solid #d2b48c;
-        }
-        .btn-cancella {
-            background: #b71c1c;
-            color: white;
-            border: none;
-            padding: 5px 10px;
             border-radius: 4px;
+            border: 1px solid #d2b48c;
             cursor: pointer;
-            font-family: 'Almendra', serif;
-            font-size: 0.8rem;
+            transition: transform 0.1s;
         }
-        .vuoto-msg {
-            text-align: center;
-            font-style: italic;
-            margin-top: 50px;
-            color: #5d4037;
+
+        .history-card:hover { background: #f9f7ef; transform: scale(1.02); }
+        .history-card.active { border: 2px solid #b71c1c; background: #fff; }
+
+        .card-title { font-weight: bold; display: block; color: #5d4037; }
+        .card-date { font-size: 0.75rem; color: #888; }
+
+        .toolbar { margin-bottom: 15px; text-align: center; }
+
+        /* Responsive per mobile */
+        @media screen and (max-width: 768px) {
+            .split-container { flex-direction: column; }
+            .sidebar { width: 100%; height: 40%; border-right: none; border-bottom: 3px double #5d4037; }
+            .preview-area { width: 100%; height: 60%; }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <p class="tithead">Cronologia Esplorazione</p>
-        
-        <div style="text-align: center; margin-bottom: 20px;">
-            <button class="dungeon-btn" onclick="svuotaCronologia()">Svuota Archivio</button>
-        </div>
 
-        <div id="cronologia-lista">
-            </div>
+<div class="split-container">
+    <div class="sidebar">
+        <p class="tithead">Archivio</p>
+        <div class="toolbar">
+            <button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto</button>
+        </div>
+        <div id="lista-history"></div>
     </div>
 
-    <script>
-        // Funzione per caricare e mostrare la cronologia
-        function caricaCronologia() {
-            const listaDiv = document.getElementById('cronologia-lista');
-            const dati = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
+    <div class="preview-area" id="anteprima-dungeon">
+        <p style="text-align: center; color: #888; margin-top: 50px; font-style: italic;">
+            Seleziona un ambiente dall'elenco per visualizzare i dettagli.
+        </p>
+    </div>
+</div>
 
-            if (dati.length === 0) {
-                listaDiv.innerHTML = '<p class="vuoto-msg">Il tuo diario di viaggio è ancora vuoto...</p>';
-                return;
-            }
+<script>
+    let dungeonDati = [];
 
-            listaDiv.innerHTML = dati.map((item, index) => `
-                <div class="cronologia-item" id="item-${index}">
-                    <div class="meta-info">
-                        <span>📍 ${item.tipo}</span>
-                        <span>📅 ${item.orario}</span>
-                    </div>
-                    <div class="content-snapshot">
-                        ${item.testo}
-                    </div>
-                </div>
-            `).join('');
+    function caricaArchivio() {
+        const listaDiv = document.getElementById('lista-history');
+        // Usiamo la chiave 'dungeon_history' che abbiamo definito in dungeon-core.js
+        dungeonDati = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
+
+        if (dungeonDati.length === 0) {
+            listaDiv.innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun dato salvato.</p>';
+            return;
         }
 
-        function svuotaCronologia() {
-            if (confirm("Sei sicuro di voler cancellare tutti gli ambienti salvati?")) {
-                localStorage.removeItem('dungeon_history');
-                caricaCronologia();
-            }
-        }
+        listaDiv.innerHTML = dungeonDati.map((item, index) => `
+            <div class="history-card" onclick="mostraDettaglio(${index}, this)">
+                <span class="card-title">${item.tipo}</span>
+                <span class="card-date">${item.orario}</span>
+            </div>
+        `).join('');
+    }
 
-        // Avvio al caricamento
-        window.onload = caricaCronologia;
-    </script>
+    function mostraDettaglio(index, elemento) {
+        // Rimuovi classe active dagli altri
+        document.querySelectorAll('.history-card').forEach(c => c.classList.remove('active'));
+        elemento.classList.add('active');
+
+        const preview = document.getElementById('anteprima-dungeon');
+        preview.innerHTML = `
+            <div style="margin-bottom: 10px; border-bottom: 1px solid #d2b48c; padding-bottom: 5px;">
+                <span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DATA GENERAZIONE: ${dungeonDati[index].orario}</span>
+            </div>
+            ${dungeonDati[index].testo}
+        `;
+    }
+
+    function resetLocalStorage() {
+        if (confirm("Attenzione: questo cancellerà per sempre tutti i dungeon salvati. Procedere?")) {
+            localStorage.removeItem('dungeon_history');
+            document.getElementById('anteprima-dungeon').innerHTML = '<p style="text-align: center; color: #888;">Archivio svuotato.</p>';
+            caricaArchivio();
+        }
+    }
+
+    window.onload = caricaArchivio;
+</script>
+
 </body>
 </html>
