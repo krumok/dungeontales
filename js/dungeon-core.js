@@ -18,36 +18,34 @@ function avviaGenerazione(dati) {
     const outputDiv = document.getElementById('output-area');
     const imgElement = document.querySelector('.img-wrapper img');
     
-    // Imposta l'immagine se presente
     if(imgElement && dati.immagine) imgElement.src = dati.immagine;
 
-    // Lanci di dadi per i cancelli e scale
-    const rSX = roll(6);
-    const rDX = roll(6);
-    const cSX = roll(6);
-    const cDX = roll(6);
-    const sG = roll(2); // scale su o giù
-    const sL = roll(4); // livelli scale
+    // Tiro per la porta (Ingresso 2)
+    let sezione5 = "";
+    if (dati.tabellaPorta) {
+        const tiroPorta = roll(6);
+        const risultatoPorta = dati.tabellaPorta[tiroPorta - 1];
+        sezione5 = `Davanti a voi c'è una porta di legno ${risultatoPorta.stato} ${getTirid(6, tiroPorta)}<br>`;
+        if (risultatoPorta.conApertura) {
+            sezione5 += `<br>${dati.testoApertura}`;
+        }
+    } 
+    // Logica per Ingresso 1 (se esistono i cancelli)
+    else if (dati.statoCancello) {
+        const cSX = roll(6); const cDX = roll(6);
+        sezione5 = `Davanti a voi c'è una porta di legno aperta<br>
+                    Il cancello a sinistra è ${dati.statoCancello[cSX-1]} ${getTirid(6, cSX)}<br>
+                    Il cancello a destra è ${dati.statoCancello[cDX-1]} ${getTirid(6, cDX)}<br><br>
+                    ${dati.aprirePorta}`;
+    }
 
+    // Costruzione HTML dinamica
     let html = `
-        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizione)}"</span></p>
-        
+        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizioni)}"</span></p>
         <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${dati.illuminazione}</p>
-        
-        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>
-        ${dati.note}<br>
-        Oltre il Cancello a sinistra: ${dati.risorsaSX[rSX-1]} ${getTirid(6, rSX)}<br>
-        Oltre il Cancello a destra: ${dati.risorsaDX[rDX-1]} ${getTirid(6, rDX)}</p>
-        
-        <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>
-        ${dati.scale[sG-1]} di ${dati.livelliScale[sL-1]} ${getTirid(4, sL)}</p>
-
-        <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>
-        Davanti a voi c'è una porta di legno aperta<br>
-        Il cancello a sinistra è ${dati.statoCancello[cSX-1]} ${getTirid(6, cSX)}<br>
-        Il cancello a destra è ${dati.statoCancello[cDX-1]} ${getTirid(6, cDX)}<br><br>
-        ${dati.aprirePorta}
-        </p>
+        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${dati.note}</p>
+        <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${dati.scale}</p>
+        <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>${sezione5}</p>
     `;
 
     outputDiv.innerHTML = html;
