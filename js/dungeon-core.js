@@ -30,6 +30,18 @@ function avviaGenerazione(dati) {
         // Caso Ingresso 2: Testo fisso
         testoScale = dati.scale;
     }
+
+    let extraNote = "";
+    if (dati.risorsaSX && dati.risorsaDX) {
+        const rSX = roll(6);
+        const rDX = roll(6);
+        // Se esce 6 pesca dalle tabelle specifiche, altrimenti "non c'è niente"
+        const itemSX = rSX === 6 ? selectOne(dati.tabellaSpadaLanterna) : "non c'è niente";
+        const itemDX = rDX === 6 ? selectOne(dati.tabellaScudoRazione) : "non c'è niente";
+        
+        extraNote = `<br>Oltre il Cancello a sinistra: ${itemSX} ${getTirid(6, rSX)}
+                     <br>Oltre il Cancello a destra: ${itemDX} ${getTirid(6, rDX)}`;
+    }
    
     let sezione5 = "";
     if (dati.tabellaPorta) {
@@ -53,7 +65,7 @@ function avviaGenerazione(dati) {
     let html = `
         <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizioni)}"</span></p>
         <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${dati.illuminazione}</p>
-        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${dati.note}</p>
+        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${dati.note}${extraNote}</p>
         <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${testoScale}</p>
         <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>${sezione5}</p>
     `;
