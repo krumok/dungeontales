@@ -1,7 +1,7 @@
 const DATI_STANZA = {
     titolo: "INGRESSO: 2",
     pagina: "p.139",
-    immagine: "assets/ingresso-2.jpg", // Assicurati di caricarla nella cartella assets
+    immagine: "assets/ingresso-2.png", // Assicurati di caricarla nella cartella assets
     
     descrizioni: [
         "Illuminata da piccoli bracieri, la scalinata termina davanti ad una porta di legno.",
