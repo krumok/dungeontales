@@ -20,7 +20,17 @@ function avviaGenerazione(dati) {
     
     if(imgElement && dati.immagine) imgElement.src = dati.immagine;
 
-    // Tiro per la porta (Ingresso 2)
+    let testoScale = "";
+    if (Array.isArray(dati.scale) && Array.isArray(dati.livelliScale)) {
+        // Caso Ingresso 1: Tira i dadi
+        const sG = roll(dati.scale.length); // 1 o 2 (salgono o scendono)
+        const sL = roll(dati.livelliScale.length); // da 1 a 4
+        testoScale = `${dati.scale[sG-1]} di ${dati.livelliScale[sL-1]} ${getTirid(4, sL)}`;
+    } else {
+        // Caso Ingresso 2: Testo fisso
+        testoScale = dati.scale;
+    }
+   
     let sezione5 = "";
     if (dati.tabellaPorta) {
         const tiroPorta = roll(6);
@@ -44,7 +54,7 @@ function avviaGenerazione(dati) {
         <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizioni)}"</span></p>
         <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${dati.illuminazione}</p>
         <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${dati.note}</p>
-        <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${dati.scale}</p>
+        <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${testoScale}</p>
         <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>${sezione5}</p>
     `;
 
