@@ -63,7 +63,7 @@ function avviaGenerazione(dati) {
     // Mantieni qui sotto le vecchie logiche (statoCancello o tabellaPorta) per compatibilità con ingresso 1 e 2
     else if (dati.tabellaPorta) {
         const tP = roll(6);
-        sezione5 = `Davanti a voi c'è una porta di legno ${dati.tabellaPorta[tP-1].stato} ${getTirid(6, tP)}`;
+        sezione5 = `Davanti a voi c'è una porta di legno <b>${dati.tabellaPorta[tP-1].stato}</b> ${getTirid(6, tP)}`;
         if (dati.tabellaPorta[tP-1].conApertura) sezione5 += `<br><br>${dati.testoApertura}`;
     } else if (dati.statoCancello) {
         const cSX = roll(6); const cDX = roll(6);
