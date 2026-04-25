@@ -39,8 +39,8 @@ function avviaGenerazione(dati) {
         const rSX = roll(6);
         const rDX = roll(6);
         // Se esce 6 pesca dalle tabelle specifiche, altrimenti "non c'è niente"
-        const itemSX = rSX === 6 ? selectOne(dati.tabellaSpadaLanterna) : "non c'è niente";
-        const itemDX = rDX === 6 ? selectOne(dati.tabellaScudoRazione) : "non c'è niente";
+        const itemSX = rSX === 6 ? "c'è " + selectOne(dati.tabellaSpadaLanterna) : "non c'è niente";
+        const itemDX = rDX === 6 ? "c'è" + selectOne(dati.tabellaScudoRazione) : "non c'è niente";
         
         extraNote = `<br>Oltre il Cancello a sinistra ${itemSX} ${getTirid(6, rSX)}
                      <br>Oltre il Cancello a destra ${itemDX} ${getTirid(6, rDX)}`;
