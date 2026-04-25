@@ -42,8 +42,8 @@ function avviaGenerazione(dati) {
         const itemSX = rSX === 6 ? selectOne(dati.tabellaSpadaLanterna) : "non c'è niente";
         const itemDX = rDX === 6 ? selectOne(dati.tabellaScudoRazione) : "non c'è niente";
         
-        extraNote = `<br>Oltre il Cancello a sinistra: ${itemSX} ${getTirid(6, rSX)}
-                     <br>Oltre il Cancello a destra: ${itemDX} ${getTirid(6, rDX)}`;
+        extraNote = `<br>Oltre il Cancello a sinistra ${itemSX} ${getTirid(6, rSX)}
+                     <br>Oltre il Cancello a destra ${itemDX} ${getTirid(6, rDX)}`;
     }
    
     let sezione5 = "";
