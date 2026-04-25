@@ -57,7 +57,7 @@ function avviaGenerazione(dati) {
                 const tiro = roll(porta.dado);
                 const risultato = porta.probabilita[tiro - 1];
                 sezione5 += `${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
-                if (risultato=='CHIUSA') { sezione5 += `<br><br>${dato.testoApertura}`; }
+                if (risultato=='CHIUSA') { sezione5 += `<br><br>${dati.testoApertura}`; }
             }
         });
     }
