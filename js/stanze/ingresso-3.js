@@ -31,6 +31,8 @@ const DATI_STANZA = {
         }
     ],
 
+    testoApertura: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +3",
+
     tabellaRisorse: [
         "Trovate... niente",
         "Trovate... niente",
