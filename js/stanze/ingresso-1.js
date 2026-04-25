@@ -16,8 +16,10 @@ const DATI_STANZA = {
     
     // Dati per i cancelli (Sezione #5)
     statoCancello: ["CHIUSO", "CHIUSO", "APERTO", "APERTO", "APERTO", "APERTO"],
-    risorsaSX: ["non c'è niente", "non c'è niente", "non c'è niente", "non c'è niente", "non c'è niente", "una Spada corta o Lanterna"],
-    risorsaDX: ["non c'è niente", "non c'è niente", "non c'è niente", "non c'è niente", "non c'è niente", "uno Scudo o Razione"],
+    risorsaSX: true, 
+    risorsaDX: true,
+    tabellaSpadaLanterna: ["una Spada corta", "una Lanterna"],
+    tabellaScudoRazione: ["uno Scudo di legno", "una Razione di cibo conservato"],
     
     // Dati per le scale (Sezione #4) - Assicurati che siano array
     scale: ["Scale che salgono", "Scale che scendono"],
