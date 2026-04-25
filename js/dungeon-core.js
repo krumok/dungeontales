@@ -11,7 +11,10 @@ const getTirid = (sides, result, mod = "") => {
 };
 
 // Funzione per selezionare un elemento casuale da un array
-const selectOne = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const selectOne = (arr) => {
+    if (!arr || arr.length === 0) return "ERRORE: Lista mancante"; 
+    return arr[Math.floor(Math.random() * arr.length)];
+};
 
 // --- 3. LOGICA DI GENERAZIONE ---
 function avviaGenerazione(dati) {
