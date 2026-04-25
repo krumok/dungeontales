@@ -57,10 +57,10 @@ function avviaGenerazione(dati) {
                 const tiro = roll(porta.dado);
                 const risultato = porta.probabilita[tiro - 1];
                 sezione5 += `${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
+                if (risultato=='CHIUSA') { sezione5 += `<br><br>${dato.testoApertura}`; }
             }
         });
-    } 
-    // Mantieni qui sotto le vecchie logiche (statoCancello o tabellaPorta) per compatibilità con ingresso 1 e 2
+    }
     else if (dati.tabellaPorta) {
         const tP = roll(6);
         sezione5 = `Davanti a voi c'è una porta di legno <b>${dati.tabellaPorta[tP-1].stato}</b> ${getTirid(6, tP)}`;
