@@ -47,16 +47,25 @@ function avviaGenerazione(dati) {
     }
    
     let sezione5 = "";
-    if (dati.tabellaPorta) {
-        const tiroPorta = roll(6);
-        const risultatoPorta = dati.tabellaPorta[tiroPorta - 1];
-        sezione5 = `Davanti a voi c'è una porta di legno ${risultatoPorta.stato} ${getTirid(6, tiroPorta)}<br>`;
-        if (risultatoPorta.conApertura) {
-            sezione5 += `<br>${dati.testoApertura}`;
-        }
+
+    if (dati.collegamenti && Array.isArray(dati.collegamenti)) {
+        // Logica Universale: cicla su ogni porta definita
+        dati.collegamenti.forEach(porta => {
+            if (porta.statoFisso) {
+                sezione5 += `${porta.nome} è <b>${porta.statoFisso}</b><br>`;
+            } else {
+                const tiro = roll(porta.dado);
+                const risultato = porta.probabilita[tiro - 1];
+                sezione5 += `${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
+            }
+        });
     } 
-    // Logica per Ingresso 1 (se esistono i cancelli)
-    else if (dati.statoCancello) {
+    // Mantieni qui sotto le vecchie logiche (statoCancello o tabellaPorta) per compatibilità con ingresso 1 e 2
+    else if (dati.tabellaPorta) {
+        const tP = roll(6);
+        sezione5 = `Davanti a voi c'è una porta di legno ${dati.tabellaPorta[tP-1].stato} ${getTirid(6, tP)}`;
+        if (dati.tabellaPorta[tP-1].conApertura) sezione5 += `<br><br>${dati.testoApertura}`;
+    } else if (dati.statoCancello) {
         const cSX = roll(6); const cDX = roll(6);
         sezione5 = `Davanti a voi c'è una porta di legno aperta<br>
                     Il cancello a sinistra è ${dati.statoCancello[cSX-1]} ${getTirid(6, cSX)}<br>
