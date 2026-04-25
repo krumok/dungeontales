@@ -12,7 +12,7 @@ const getTirid = (sides, result, mod = "") => {
 
 // Funzione per selezionare un elemento casuale da un array
 const selectOne = (arr) => {
-    if (!arr || arr.length === 0) return "ERRORE: Lista mancante"; 
+    if (!arr || arr.length === 0) return "<span style=''>ERRORE: Lista mancante</span>"; 
     return arr[Math.floor(Math.random() * arr.length)];
 };
 
