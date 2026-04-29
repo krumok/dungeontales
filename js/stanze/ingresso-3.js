@@ -27,7 +27,7 @@ const DATI_STANZA = {
         },
         {
             nome: "Porta di ferro a destra",
-            statoFisso: "APERTA"
+            statoFisso: "aperta"
         }
     ],
 

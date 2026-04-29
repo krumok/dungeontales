@@ -23,63 +23,81 @@ function avviaGenerazione(dati) {
     
     if(imgElement && dati.immagine) imgElement.src = dati.immagine;
 
+    // --- 1. CALCOLO TRAPPOLA (Anticipato) ---
+    let haTrappola = false;
+    let sezioneTrappola = "";
+    let tiroTrappola = 0;
+
+    if (dati.datiTrappola) {
+        tiroTrappola = roll(dati.datiTrappola.dado);
+        const risultatoT = dati.datiTrappola.probabilita[tiroTrappola - 1];
+        
+        if (risultatoT === "PRESENTE") {
+            haTrappola = true;
+            sezioneTrappola = `<p class="basepg"><b>#6</b> <span class="titsez">TRAPPOLA:</span> PRESENTE ${getTirid(dati.datiTrappola.dado, tiroTrappola)}<br>${dati.datiTrappola.dettaglio}</p>`;
+        } else {
+            sezioneTrappola = `<p class="basepg"><b>#6</b> <span class="titsez">TRAPPOLA:</span> ASSENTE ${getTirid(dati.datiTrappola.dado, tiroTrappola)}</p>`;
+        }
+    }
+
+    // --- 2. SCALE (#4) ---
     let testoScale = "";
     if (Array.isArray(dati.scale) && Array.isArray(dati.livelliScale)) {
-        // Caso Ingresso 1: Tira i dadi
-        const sG = roll(dati.scale.length); // 1 o 2 (salgono o scendono)
-        const sL = roll(dati.livelliScale.length); // da 1 a 4
-        testoScale = `${dati.scale[sG-1]} di ${dati.livelliScale[sL-1]} ${getTirid(4, sL)}`;
+        const sG = roll(dati.scale.length);
+        const sL = roll(dati.livelliScale.length);
+        testoScale = `${dati.scale[sG-1]} di ${dati.livelliScale[sL-1]} ${getTirid(dati.livelliScale.length == 2 ? 2 : 4, sL)}`;
     } else {
-        // Caso Ingresso 2: Testo fisso
-        testoScale = dati.scale;
+        testoScale = dati.scale || "Solo quelle di ingresso";
     }
 
+    // --- 3. NOTE E ILLUMINAZIONE DINAMICHE ---
+    // Se la trappola c'è, aggiungiamo i testi extra (se definiti nel file della stanza)
+    let noteFinali = dati.note;
+    if (haTrappola && dati.notaTrappola) {
+        noteFinali += `<br><span style="color:#d9534f;"><b>ATTENZIONE:</b> ${dati.notaTrappola}</span>`;
+    }
+
+    let illuminazioneFinale = dati.illuminazione;
+    if (haTrappola && dati.illuminazioneTrappola) {
+        illuminazioneFinale += `<br><span style="color:#d9534f;"><b>EFFETTO TRAPPOLA:</b> ${dati.illuminazioneTrappola}</span>`;
+    }
+
+    // --- 4. EXTRA NOTE (Cancelli Ingresso 1) ---
     let extraNote = "";
     if (dati.risorsaSX && dati.risorsaDX) {
-        const rSX = roll(6);
-        const rDX = roll(6);
-        // Se esce 6 pesca dalle tabelle specifiche, altrimenti "non c'è niente"
+        const rSX = roll(6); const rDX = roll(6);
         const itemSX = rSX === 6 ? "c'è " + selectOne(dati.tabellaSpadaLanterna) : "non c'è niente";
-        const itemDX = rDX === 6 ? "c'è" + selectOne(dati.tabellaScudoRazione) : "non c'è niente";
-        
-        extraNote = `<br>Oltre il Cancello a sinistra ${itemSX} ${getTirid(6, rSX)}
-                     <br>Oltre il Cancello a destra ${itemDX} ${getTirid(6, rDX)}`;
+        const itemDX = rDX === 6 ? "c'è " + selectOne(dati.tabellaScudoRazione) : "non c'è niente";
+        extraNote = `<br>Oltre il Cancello a sinistra ${itemSX} ${getTirid(6, rSX)}<br>Oltre il Cancello a destra ${itemDX} ${getTirid(6, rDX)}`;
     }
    
+    // --- 5. COLLEGAMENTI (#5) ---
     let sezione5 = "";
-
     if (dati.collegamenti && Array.isArray(dati.collegamenti)) {
-        // Logica Universale: cicla su ogni porta definita
         dati.collegamenti.forEach(porta => {
             if (porta.statoFisso) {
-                sezione5 += `${porta.nome} è <b>${porta.statoFisso}</b><br>`;
+                sezione5 += `<br>${porta.nome} è <b>${porta.statoFisso}</b><br>`;
             } else {
                 const tiro = roll(porta.dado);
                 const risultato = porta.probabilita[tiro - 1];
-                sezione5 += `${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
-                if (risultato=='CHIUSA') { sezione5 += `<br><br>${dati.testoApertura}`; }
+                sezione5 += `<br>${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
+                if (risultato == 'CHIUSA') { sezione5 += `<span class="rigas"><br></span>${dati.testoApertura}<br>`; }
             }
         });
-    }
-    else if (dati.tabellaPorta) {
+    } else if (dati.tabellaPorta) {
         const tP = roll(6);
-        sezione5 = `Davanti a voi c'è una porta di legno <b>${dati.tabellaPorta[tP-1].stato}</b> ${getTirid(6, tP)}`;
+        sezione5 = `<br>Davanti a voi c'è una porta di legno <b>${dati.tabellaPorta[tP-1].stato}</b> ${getTirid(6, tP)}`;
         if (dati.tabellaPorta[tP-1].conApertura) sezione5 += `<br><br>${dati.testoApertura}`;
-    } else if (dati.statoCancello) {
-        const cSX = roll(6); const cDX = roll(6);
-        sezione5 = `Davanti a voi c'è una porta di legno aperta<br>
-                    Il cancello a sinistra è ${dati.statoCancello[cSX-1]} ${getTirid(6, cSX)}<br>
-                    Il cancello a destra è ${dati.statoCancello[cDX-1]} ${getTirid(6, cDX)}<br><br>
-                    ${dati.aprirePorta}`;
     }
 
-    // Costruzione HTML dinamica
+    // Costruzione HTML
     let html = `
         <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizioni)}"</span></p>
-        <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${dati.illuminazione}</p>
-        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${dati.note}${extraNote}</p>
+        <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${illuminazioneFinale}</p>
+        <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${noteFinali}${extraNote}</p>
         <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${testoScale}</p>
-        <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span><br>${sezione5}</p>
+        <p class="basep"><b>#5</b> <span class="titsez">COLLEGAMENTI:</span>${sezione5}</p>
+        ${sezioneTrappola}
     `;
 
     outputDiv.innerHTML = html;

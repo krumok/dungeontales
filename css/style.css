@@ -25,11 +25,15 @@ body {
 }
 
 .img-wrapper img {
-    max-width: 100%;
-    height: auto;
-    background: white;
-    border-radius: 8px;
+    height: 350px;         
+    width: auto;           
+    max-width: 100%;       
+    object-fit: contain;   
+    background: white; 
+    border-radius: 8px; 
     border: 2px solid #ccc;
+    display: block;
+    margin: 0 auto;        /* Centra l'immagine nel contenitore */
 }
 
 /* Tipografia e Blocchi */
@@ -65,9 +69,21 @@ body {
 }
 
 .titsez {
-    color: #b71c1c; /* Un rosso leggermente più profondo per leggibilità */
+    color: red;
     font-weight: bold;
 }
+
+.rigas {
+	font-size: 26px;
+	display: inline-block;
+}
+
+  .didaimg{
+    margin-bottom: 0.3em;
+    font-size: 0.8rem;
+    font-style: italic;
+	text-align: center;
+  }
 
 /* Badge dei dadi */
 .tirid { 

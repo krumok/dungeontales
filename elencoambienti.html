@@ -63,7 +63,7 @@
 
 <div class="split-container">
     <div class="sidebar">
-        <p class="tithead">Archivio</p>
+        <p class="tithead">Archivio Generatore</p>
         <div class="toolbar">
             <button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto</button>
         </div>
@@ -113,7 +113,7 @@
     }
 
     function resetLocalStorage() {
-        if (confirm("Attenzione: questo cancellerà per sempre tutti i dungeon salvati. Procedere?")) {
+        if (confirm("Attenzione: questo cancellerà per sempre tutti gli ambienti salvati. Procedere?")) {
             localStorage.removeItem('dungeon_history');
             document.getElementById('anteprima-dungeon').innerHTML = '<p style="text-align: center; color: #888;">Archivio svuotato.</p>';
             caricaArchivio();

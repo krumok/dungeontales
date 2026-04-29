@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="utf-8">
+    <title>Stanza 6V</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="js/stanze/stanza-6v.js?103" defer></script>
+    <script src="js/dungeon-rooms.js?104" defer></script>
+</head>
+<body>
+	<div class="main-container">
+	  <p class="tithead">Caricamento...</p>
+	  <div class="img-wrapper"><img src=""></div>
+	  <div class="didaimg">Gli Ambienti possono essere ruotati a piacimento<br>per favorire i collegamenti tra loro.</div>
+
+	  <div id="output-area-1" class="content-block"></div>
+
+	  <div class="content-block">
+		<p class="basep">
+		  <b>#5 <span class="titsez">FORZIERE:</span></b>
+		  <span id="sezione-forziere"></span>
+		  <span id="el_risorsaf"></span> 
+		</p>
+	  </div>
+
+	  <div id="output-area-2" class="content-block"></div>
+
+	  <div class="content-block">
+		<p class="basepg">
+		  <b>#12 <span class="titsez">RISORSE:</span></b>
+		  <button class="dungeon-btn" onclick="lanciaRisorsa(DATI_STANZA.tabellaRisorse)">Lancia D6</button>  
+		  <span id="el_risorsa"></span>   
+		</p>
+	  </div>
+	</div>
+</body>
+</html>
