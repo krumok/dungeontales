@@ -35,16 +35,16 @@ const DATI_STANZA = {
     datiTrappola: {
         probabilita: ["PRESENTE", "ASSENTE", "ASSENTE", "ASSENTE", "ASSENTE", "ASSENTE"], // PRESENTE solo con 1
         dado: 6,
-        dettaglio: `<br>"Dardi dalle pareti"<br>LEM 1-3 1d6 Danni<br>LEM 4-6 1d8 Danni<br>LEM 7-10 1d10 Danni<br><br>Per Disattivare Trappola prova di PR:<br>LEM 1-3 Complicata 10+<br>LEM 4-6 Normale 5+<br>LEM 7-10 1d10 Danni`
+        dettaglio: `<br>"Dardi dalle pareti"<br>LEM 1-3 1d6 Danni<br>LEM 4-6 1d8 Danni<br>LEM 7-10 1d10 Danni<br><br>Per Disattivare Trappola prova di PR:<br>LEM 1-3 Normale 5+<br>LEM 4-6 Complicata 10+<br>LEM 7-10 Difficile 15+`
     },
 
     tabellaRisorse: [
         "Trovate... niente",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)"
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce"
     ]
 };
 

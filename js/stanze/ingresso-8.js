@@ -44,11 +44,11 @@ const DATI_STANZA = {
 
     tabellaRisorse: [
         "Trovate... niente",
-        "Pugnale arrugginito (Vedi Pugnale: -2 ai danni)",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)"
+        "Trovate un pugnale arrugginito (Vedi Pugnale -2 ai danni)",
+		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d2 torce"
     ]
 };
 

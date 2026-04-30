@@ -27,17 +27,17 @@ const DATI_STANZA = {
 	
     collegamenti: [
         {
-            nome: "Davanti a voi c'è una porta di legno aperta",
+            nome: "La porta di legno davanti a voi",
             statoFisso: "aperta"
         },
         {
-            nome: "Il cancello a sinistra è",
-            probabilita: ["CHIUSA", "CHIUSA", "APERTA", "APERTA", "APERTA", "APERTA"],
+            nome: "Il cancello a sinistra",
+            probabilita: ["CHIUSO", "CHIUSO", "APERTO", "APERTO", "APERTO", "APERTO"],
             dado: 6
         },
         {
-            nome: "Il cancello a sinistra è",
-            probabilita: ["CHIUSA", "CHIUSA", "APERTA", "APERTA", "APERTA", "APERTA"],
+            nome: "Il cancello a sinistra",
+            probabilita: ["CHIUSO", "CHIUSO", "APERTO", "APERTO", "APERTO", "APERTO"],
             dado: 6
         }
     ],
@@ -46,11 +46,11 @@ const DATI_STANZA = {
 
     tabellaRisorse: [
         "Trovate... niente", 
-        "Pietre per fionda", 
-        "Pietre per fionda", 
-        "Pietre per fionda", 
-        "Pezzi di legno (1d2 torce)", 
-        "Pezzi di legno (1d2 torce)"
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce"
     ]
 };
 

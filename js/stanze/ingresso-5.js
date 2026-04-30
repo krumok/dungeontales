@@ -34,11 +34,11 @@ const DATI_STANZA = {
 
     tabellaRisorse: [
         "Trovate... niente",
-        "Stracci polverosi (utili per un sacco a tracolla)",
-        "Stracci polverosi (utili per un sacco a tracolla)",
-        "Stracci polverosi (utili per un sacco a tracolla)",
-        "Funghi e piante commestibili (1d2 razioni, x2 se Mezz'uomo)",
-        "Funghi e piante commestibili (1d2 razioni, x2 se Mezz'uomo)"
+        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
+        "Trovate dei funghi e piante commestibili (1d2 di razioni, x2 se c'è un mezz'uomo)",
+        "Trovate dei funghi e piante commestibili (1d2 di razioni, x2 se c'è un mezz'uomo)"
     ]
 };
 

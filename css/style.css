@@ -25,7 +25,8 @@ body {
 }
 
 .img-wrapper img {
-    height: 350px;         
+    height: auto;
+	min-width: 200px;
     width: auto;           
     max-width: 100%;       
     object-fit: contain;   

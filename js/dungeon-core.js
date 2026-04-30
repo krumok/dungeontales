@@ -54,7 +54,7 @@ function avviaGenerazione(dati) {
     // Se la trappola c'è, aggiungiamo i testi extra (se definiti nel file della stanza)
     let noteFinali = dati.note;
     if (haTrappola && dati.notaTrappola) {
-        noteFinali += `<br><span style="color:#d9534f;"><b>ATTENZIONE:</b> ${dati.notaTrappola}</span>`;
+        noteFinali += `<br><span style="color:#d9534f;"><b>EFFETTO TRAPPOLA:</b> ${dati.notaTrappola}</span>`;
     }
 
     let illuminazioneFinale = dati.illuminazione;
@@ -81,7 +81,7 @@ function avviaGenerazione(dati) {
                 const tiro = roll(porta.dado);
                 const risultato = porta.probabilita[tiro - 1];
                 sezione5 += `<br>${porta.nome} è <b>${risultato}</b> ${getTirid(porta.dado, tiro)}<br>`;
-                if (risultato == 'CHIUSA') { sezione5 += `<span class="rigas"><br></span>${dati.testoApertura}<br>`; }
+                if (risultato == 'CHIUSA' || risultato == 'CHIUSO') { sezione5 += `<span class="rigas"><br></span>${dati.testoApertura}<br>`; }
             }
         });
     } else if (dati.tabellaPorta) {
@@ -107,12 +107,16 @@ function avviaGenerazione(dati) {
 // --- 4. GESTIONE RISORSE (Il tasto Lancia D6) ---
 let countRicerca = 0;
 function lanciaRisorsa(tabella) {
-    if (!tabella) return;
+    const el = document.getElementById('el_risorsa');
+    if (countRicerca === 0) {
+        el.innerHTML = "";
+    }
     countRicerca++;
     const r = roll(6);
-    const el = document.getElementById('el_risorsa');
-    const nuovoRisultato = `<br><b>Ricerca n.${countRicerca}</b>: ${tabella[r-1]} ${getTirid(6, r)}`;
-    el.innerHTML = nuovoRisultato + el.innerHTML;
+    let frase = tabella[r - 1];
+    const rigaCompleta = `${frase} ${getTirid(6, r)}`;
+    const nuovo = `<br><b>Ricerca n.${countRicerca}</b><br>${rigaCompleta}<br>`;
+    el.innerHTML = nuovo + el.innerHTML;
 }
 
 // --- 5. SALVATAGGIO CRONOLOGIA ---

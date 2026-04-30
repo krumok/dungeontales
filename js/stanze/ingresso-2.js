@@ -29,12 +29,12 @@ const DATI_STANZA = {
     testoApertura: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +3",
     
     tabellaRisorse: [
-        "Trovate della cera (1d2 candele)",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)"
+        "Trovate della cera che si può usare per fare 1d2 di candele",
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce"
     ]
 };
 

@@ -16,7 +16,7 @@ const DATI_STANZA = {
     scale: "Solo quelle di ingresso",
     
     collegamenti: [
-        { nome: "La porta a sinistra", statoFisso: "aperta" },
+        { nome: "Le porte sono tutte di ferro.<br>La porta a sinistra", statoFisso: "aperta" },
         {
             nome: "La porta a destra",
             probabilita: ["CHIUSA", "CHIUSA", "CHIUSA", "APERTA", "APERTA", "APERTA"],
@@ -32,12 +32,12 @@ const DATI_STANZA = {
     testoApertura: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +2<br>LEM 4-6 PCN LEM +3<br>LEM 7-10 PCN LEM +5",
 
     tabellaRisorse: [
-        "Cera per 1d2 candele",
-        "Cera per 1d2 candele",
-        "Pezzi di legno (1d2 torce)",
-        "Pezzi di legno (1d2 torce)",
-        "Assi di legno (Arma mischia BO+1, Danni: 1m 1d4 / 2m 1d6)",
-        "Assi di legno (Arma mischia BO+1, Danni: 1m 1d4 / 2m 1d6)"
+        "Trovate della cera che si può usare per fare 1d2 di candele",
+        "Trovate della cera che si può usare per fare 1d2 di candele",
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate delle assi di legno da cui potete ricavare un'arma da mischia (BO+1, Danni: una mano 1d4 / 2 mani 1d6)",
+        "Trovate delle assi di legno da cui potete ricavare un'arma da mischia (BO+1, Danni: una mano 1d4 / 2 mani 1d6)"
     ]
 };
 

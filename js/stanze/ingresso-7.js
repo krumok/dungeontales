@@ -32,10 +32,10 @@ const DATI_STANZA = {
     tabellaRisorse: [
         "Trovate... niente",
         "Trovate... niente",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Stracci polverosi (utili per un sacco a tracolla)",
-        "Stracci polverosi (utili per un sacco a tracolla)"
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla"
     ]
 };
 

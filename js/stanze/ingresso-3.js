@@ -36,10 +36,10 @@ const DATI_STANZA = {
     tabellaRisorse: [
         "Trovate... niente",
         "Trovate... niente",
-        "Pietre per fionda",
-        "Pietre per fionda",
-        "Pezzi di legno (1d2 torce)",
-        "Funghi e piante commestibili (1d2 razioni, x2 se Mezz'uomo)"
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate delle pietre che si possono usare come proiettili per fionda", 
+        "Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
+        "Trovate dei funghi e piante commestibili (1d2 di razioni, x2 se c'è un mezz'uomo)"
     ]
 };
 
