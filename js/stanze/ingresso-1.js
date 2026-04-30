@@ -24,9 +24,26 @@ const DATI_STANZA = {
     // Dati per le scale (Sezione #4) - Assicurati che siano array
     scale: ["Scale che salgono", "Scale che scendono"],
     livelliScale: ["1 livello (LVP 0)", "2 livelli (LVP 2)", "3 livelli (LVP 3)", "4 livelli (LVP 4)"],
-    
-    aprirePorta: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +3",
-    
+	
+    collegamenti: [
+        {
+            nome: "Davanti a voi c'è una porta di legno aperta",
+            statoFisso: "aperta"
+        },
+        {
+            nome: "Il cancello a sinistra è",
+            probabilita: ["CHIUSA", "CHIUSA", "APERTA", "APERTA", "APERTA", "APERTA"],
+            dado: 6
+        },
+        {
+            nome: "Il cancello a sinistra è",
+            probabilita: ["CHIUSA", "CHIUSA", "APERTA", "APERTA", "APERTA", "APERTA"],
+            dado: 6
+        }
+    ],
+
+    testoApertura: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +3",
+
     tabellaRisorse: [
         "Trovate... niente", 
         "Pietre per fionda", 
