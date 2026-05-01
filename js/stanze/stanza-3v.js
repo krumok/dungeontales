@@ -57,6 +57,7 @@ const DATI_STANZA = {
     // Collegamenti Stanza 3: 1-2 Nessuna, 3-4 Porta, 5 Arco, 6 Portone
     soglieCollegamenti: { nessuna: 2, porta: 4, arco: 5, portone: 6 },
     
+	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +2<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>4-6 PCN LEM +2<br>7-10 PCN LEM +4",
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +D4<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>4-6 PCN LEM +2<br>7-10 PCN LEM +4",
     

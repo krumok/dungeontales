@@ -29,6 +29,7 @@ const DATI_STANZA = {
     uscite: ["SI", "NO", "NO", "NO", "NO", "NO"],    // SI solo con 1
     note: "E' possibile accamparsi in questo ambiente.",
 
+	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +1<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +D4<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
     

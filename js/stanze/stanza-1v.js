@@ -17,6 +17,7 @@ const DATI_STANZA = {
     illuminazione: ["Nessuna (1.5m)", "Nessuna (1.5m)", "Nessuna (1.5m)", "Nessuna (1.5m)", "Luce scarsa (3m)", "Luce fievole (6m)"],
     provenienzaLuce: ["da fenditure", "da ambienti limitrofi", "da candele quasi spente"],
     
+	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
     testoAperturaPortone: "Per Sfondare prova di VR con Svantaggio, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
     

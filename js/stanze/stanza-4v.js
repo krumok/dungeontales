@@ -49,6 +49,7 @@ const DATI_STANZA = {
     uscite: ["SI", "NO", "NO", "NO", "NO", "NO"],
 
     soglieCollegamenti: { nessuna: 1, porta: 3, arco: 5, portone: 6 },
+	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +1<br>Per Scassinare prova di PR: LEM 1-3 +1, 4-6 +2, 7-10 +4",
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +D4<br>Per Scassinare prova di PR: LEM 1-3 +1, 4-6 +2, 7-10 +4",
 
