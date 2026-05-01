@@ -5,10 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         body {
-            background-image: url('assets/DT_Sfondo_Generatore.png'); /* Il tuo sfondo */
-            background-repeat: repeat;
+            background-color: #000; 
+            /* PUNTO 4: Sfondo pergamena con il tuo file */
+            background-image: url('assets/DT_Sfondo_Generatore.png');
+            background-size: 1200px auto; 
+            background-repeat: no-repeat;
+            background-position: top center;
+            background-attachment: scroll;
             margin: 0;
-            padding: 20px;
+            padding: 0;
             font-family: 'Garamond', serif;
             display: flex;
             flex-direction: column;
@@ -16,65 +21,117 @@
         }
 
         .header-logo {
-            max-width: 100%;
-            width: 500px;
-            margin-bottom: 20px;
+            max-width: 90%;
+            width: 600px;
+            margin: 40px 0 20px 0;
         }
 
+        /* PUNTO 2: Banner nero largo con testo bianco */
         .banner-istruzioni {
             background-color: #000;
-            color: #ff4444;
             width: 100%;
-            max-width: 900px;
+            max-width: 1200px;
             text-align: center;
-            padding: 10px 0;
-            border: 2px solid #d3a96c;
-            border-radius: 5px;
-            margin-bottom: 40px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+            padding: 30px 0;
+            margin-bottom: 50px;
         }
 
+        /* Cornice Rossa Interna */
+        .box-rosso {
+            background-image: url('assets/cornice1.png'); 
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+            padding: 20px 40px;
+            display: inline-block;
+            min-width: 300px;
+            max-width: 90%;
+        }
+
+        .box-rosso h2 {
+            margin: 0;
+            font-size: 1.6em;
+            color: #FFF;
+            text-transform: uppercase;
+        }
+
+        .box-rosso p {
+            margin: 5px 0 0 0;
+            font-size: 1em;
+            color: #FFF;
+        }
+
+        /* PUNTO 1: Griglia per 8 ingressi (4 per riga) */
         .grid-ingressi {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(4, 220px); 
+            gap: 40px 20px; /* Spazio verticale 40px, orizzontale 20px */
+            justify-content: center;
             width: 100%;
             max-width: 1000px;
-            justify-items: center;
+            padding-bottom: 100px;
         }
 
-        /* IL CONTENITORE CON LA CORNICE */
         .cornice-box {
             position: relative;
-            width: 180px;  /* Regola in base alla tua cornice */
-            height: 240px; /* Regola in base alla tua cornice */
-            background-image: url('assets/cornice_ingresso.png'); /* La tua cornice PNG */
+            width: 220px;
+            height: 300px;
+            background-image: url('assets/cornice_ingresso.png');
             background-size: 100% 100%;
-            cursor: pointer;
-            transition: transform 0.3s ease;
+            background-repeat: no-repeat;
+            padding: 18px; /* Spazio per far respirare la mappa */
+            box-sizing: border-box;
             display: flex;
-            flex-direction: column;
-            align-items: center;
             justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s;
         }
 
         .cornice-box:hover {
-            transform: scale(1.08);
+            transform: scale(1.05);
         }
 
-        /* L'IMMAGINE DELLA MAPPA DENTRO LA CORNICE */
         .mappa-img {
-            width: 75%; /* Spinge l'immagine dentro i bordi della cornice */
-            height: auto;
-            margin-bottom: 10px;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+            display: block;
         }
 
         .label-ingresso {
-            color: #d3a96c;
+            position: absolute;
+            bottom: -35px;
+            width: 100%;
+            text-align: center;
+            color: #FFF; 
             font-weight: bold;
             text-transform: uppercase;
-            font-size: 0.9em;
-            text-shadow: 1px 1px 2px #000;
+            font-size: 1em;
+            text-shadow: 2px 2px 4px #000;
+        }
+
+        /* PUNTO 2: RESPONSIVE PER SMARTPHONE */
+        @media (max-width: 900px) {
+            body {
+                background-size: cover; /* La pergamena si adatta allo schermo piccolo */
+            }
+            .grid-ingressi {
+                grid-template-columns: repeat(2, 160px); /* 2 per riga su mobile */
+                gap: 50px 15px;
+            }
+            .cornice-box {
+                width: 160px;
+                height: 220px;
+            }
+            .header-logo {
+                width: 80%;
+            }
+            .box-rosso {
+                min-width: 80%;
+            }
+            .box-rosso h2 { font-size: 1.2em; }
+            .box-rosso p { font-size: 0.8em; }
         }
     </style>
 </head>
@@ -83,22 +140,23 @@
     <img src="assets/Logo_DT_Esteso_Nero.png" class="header-logo">
 
     <div class="banner-istruzioni">
-        <h2 style="margin:0; font-size: 1.5em;">INGRESSO DEL DUNGEON</h2>
-        <p style="margin:5px 0 0 0;">Tirare <b>1D8</b> per il tipo di ingresso e cliccare sull'ingresso corrispondente</p>
+        <div class="box-rosso">
+            <h2>Ingresso del Dungeon</h2>
+            <p>Tirare <b>1D8</b> e cliccare sull'ingresso corrispondente</p>
+        </div>
     </div>
 
     <div class="grid-ingressi">
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/ingresso-1'">
-            <img src="assets/ingresso-1.jpg" class="mappa-img">
-            <div class="label-ingresso">Ingresso 1</div>
-        </div>
-
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/ingresso-2'">
-            <img src="assets/ingresso-2.png" class="mappa-img">
-            <div class="label-ingresso">Ingresso 2</div>
-        </div>
-
-        </div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_1'"><img src="assets/ingresso-1.jpg" class="mappa-img"><div class="label-ingresso">Ingresso 1</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_2'"><img src="assets/ingresso-2.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_3'"><img src="assets/ingresso-3.png" class="mappa-img"><div class="label-ingresso">Ingresso 3</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_4'"><img src="assets/ingresso-4.png" class="mappa-img"><div class="label-ingresso">Ingresso 4</div></div>
+        
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_5'"><img src="assets/ingresso-5.png" class="mappa-img"><div class="label-ingresso">Ingresso 5</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_6'"><img src="assets/ingresso-6.png" class="mappa-img"><div class="label-ingresso">Ingresso 6</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_7'"><img src="assets/ingresso-7.png" class="mappa-img"><div class="label-ingresso">Ingresso 7</div></div>
+        <div class="cornice-box" onclick="window.top.location.href='URL_INGRESSO_8'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
+    </div>
 
 </body>
 </html>

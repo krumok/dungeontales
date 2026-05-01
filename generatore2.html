@@ -43,39 +43,47 @@
             justify-items: center;
         }
 
-        /* IL CONTENITORE CON LA CORNICE */
-        .cornice-box {
-            position: relative;
-            width: 180px;  /* Regola in base alla tua cornice */
-            height: 240px; /* Regola in base alla tua cornice */
-            background-image: url('assets/cornice_ingresso.png'); /* La tua cornice PNG */
-            background-size: 100% 100%;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
+		/* IL CONTENITORE CON LA CORNICE */
+		.cornice-box {
+			position: relative;
+			width: 200px;  /* Dimensione fissa per coerenza */
+			height: 280px; /* Proporzione verticale tipica delle tue cornici */
+			background-image: url('assets/cornice_ingresso.png'); /* Assicurati che il percorso sia corretto */
+			background-size: contain;
+			background-repeat: no-repeat;
+			background-position: center;
+			cursor: pointer;
+			transition: transform 0.3s ease;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-        .cornice-box:hover {
-            transform: scale(1.08);
-        }
+		.cornice-box:hover {
+			transform: scale(1.08);
+		}
 
-        /* L'IMMAGINE DELLA MAPPA DENTRO LA CORNICE */
-        .mappa-img {
-            width: 75%; /* Spinge l'immagine dentro i bordi della cornice */
-            height: auto;
-            margin-bottom: 10px;
-        }
+		/* L'IMMAGINE DELLA MAPPA DENTRO LA CORNICE */
+		.mappa-img {
+			position: absolute;
+			top: 15%;      /* Sposta la mappa verso il basso per centrarla nel vuoto della cornice */
+			width: 70%;    /* Riduce la dimensione della mappa per non coprire i bordi d'oro */
+			height: auto;
+			z-index: -1;   /* Opzionale: mette la mappa "dietro" la cornice se la cornice ha il centro trasparente */
+		}
 
-        .label-ingresso {
-            color: #d3a96c;
-            font-weight: bold;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            text-shadow: 1px 1px 2px #000;
-        }
+		/* ETICHETTA SOTTO LA CORNICE */
+		.label-ingresso {
+			position: absolute;
+			bottom: -25px; /* Mette il testo fuori dalla cornice, in basso */
+			color: #d3a96c;
+			font-weight: bold;
+			text-transform: uppercase;
+			font-size: 0.9em;
+			text-shadow: 1px 1px 2px #000;
+			width: 100%;
+			text-align: center;
+		}
     </style>
 </head>
 <body>
