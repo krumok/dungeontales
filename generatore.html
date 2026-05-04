@@ -177,10 +177,11 @@
     </div>
 <script>
 	function inviaComando(urlDestinazione) {
+		// Comunichiamo con il "genitore" (Google Sites)
 		window.parent.postMessage({
-			action: 'naviga',
-			url: urlDestinazione
-		}, '*'); 
+			tipo: 'NAVIGAZIONE_SITES',
+			destinazione: urlDestinazione
+		}, '*');
 	}
 </script>
 </body>
