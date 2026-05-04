@@ -154,12 +154,10 @@
     </div>
 
     <div class="grid-ingressi">
-		<a href="generatore/ingressi/ingresso-tipo-1" target="_top" class="cornice-link">
-			<div class="cornice-box">
-				<img src="assets/ingresso-1.jpg" class="mappa-img">
-				<div class="label-ingresso">Ingresso 1</div>
-			</div>
-		</a>		
+		<div class="cornice-box" onclick="naviga('https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-1')">
+		    <img src="assets/mappa1.png" class="mappa-img">
+		    <div class="label-ingresso">Ingresso 1</div>
+		</div>	
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-2'"><img src="assets/ingresso-2.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-3'"><img src="assets/ingresso-3.png" class="mappa-img"><div class="label-ingresso">Ingresso 3</div></div>
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-4'"><img src="assets/ingresso-4.png" class="mappa-img"><div class="label-ingresso">Ingresso 4</div></div>
@@ -169,6 +167,10 @@
         <div class="cornice-box" onclick="window.top.location.href='https://7ites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-7'"><img src="assets/ingresso-7.png" class="mappa-img"><div class="label-ingresso">Ingresso 7</div></div>
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-8'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
     </div>
-
+<script>
+function naviga(url) {
+    window.open(url, '_top');
+}
+</script>
 </body>
 </html>
