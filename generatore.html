@@ -154,8 +154,8 @@
     </div>
 
     <div class="grid-ingressi">
-		<div class="cornice-box" onclick="naviga('https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-1')">
-		    <img src="assets/mappa1.png" class="mappa-img">
+		<div class="cornice-box">
+			<img src="mappa_livello_1.png" class="mappa-img" onclick="inviaComando('https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-1')">
 		    <div class="label-ingresso">Ingresso 1</div>
 		</div>	
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-2'"><img src="assets/ingresso-2.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
@@ -168,9 +168,12 @@
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-8'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
     </div>
 <script>
-function naviga(url) {
-    window.open(url, '_top');
-}
+	function inviaComando(urlDestinazione) {
+		window.parent.postMessage({
+			action: 'naviga',
+			url: urlDestinazione
+		}, '*'); 
+	}
 </script>
 </body>
 </html>
