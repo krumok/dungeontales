@@ -152,17 +152,19 @@
 (function() {
     const urlParams = new URLSearchParams(window.location.search);
     const segreto = urlParams.get('access');
-
+	console.log(segreto);
     // Se il segreto non corrisponde a quello impostato nel pulsante nativo
     if (segreto !== 'ALFA_99_OMEGA') {
         // Mostra un messaggio e poi rimanda a Google Sites
-        document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+        //document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+		console.log('rimando a google');
         setTimeout(() => {
             window.location.href = "https://sites.google.com/view/generatore-dungeontales";
         }, 15000);
     } else {
         // Accesso OK: Salva nella sessione per le altre pagine del dungeon
-        sessionStorage.setItem('verified', 'true');
+		console.log('accesso ok');
+		sessionStorage.setItem('verified', 'true');
     }
 })();
 	</script>	
