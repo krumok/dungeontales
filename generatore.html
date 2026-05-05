@@ -150,22 +150,21 @@
 	  })();
 	  
 (function() {
-    // 1. Controlliamo se l'utente ha già fatto il login in questa sessione
-    if (sessionStorage.getItem('accesso_ok') === 'true') {
-        return; // Tutto ok, non facciamo nulla
-    }
-
-    // 2. Controlliamo se è appena tornato da Google Sites con il "visto"
     const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('auth') === 'success') {
-        sessionStorage.setItem('accesso_ok', 'true');
-        // Puliamo l'URL dal parametro ?auth=success per estetica
-        window.history.replaceState({}, document.title, window.location.pathname);
+    const segreto = urlParams.get('access');
+
+    // Se il segreto non corrisponde a quello impostato nel pulsante nativo
+    if (segreto !== 'ALFA_99_OMEGA') {
+        // Mostra un messaggio e poi rimanda a Google Sites
+        document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+        setTimeout(() => {
+            window.location.href = "https://sites.google.com/view/generatore-dungeontales";
+        }, 3000);
     } else {
-        // 3. Se non ha il visto, lo mandiamo alla pagina protetta di Google Sites
-        window.location.href = "https://sites.google.com/view/generatore-dungeontales/accesso";
+        // Accesso OK: Salva nella sessione per le altre pagine del dungeon
+        sessionStorage.setItem('verified', 'true');
     }
-})();  
+})();
 	</script>	
 </head>
 <body>
