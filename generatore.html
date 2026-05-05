@@ -77,7 +77,7 @@
             position: relative;
             width: 220px;
             height: 300px;
-            background-image: url('assets/cornice_ingresso.png');
+            background-image: url('assets/corniceb.png');
             background-size: 100% 100%;
             background-repeat: no-repeat;
             padding: 18px; /* Spazio per far respirare la mappa */
@@ -88,6 +88,10 @@
             cursor: pointer;
             transition: transform 0.3s;
         }
+		
+		.cornice-boxt {
+			background-image: url('assets/cornicet.png') !important;
+		}
 
         .cornice-box:hover {
             transform: scale(1.05);
@@ -280,14 +284,14 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
 
     <div class="grid-ingressi">
 		<div class="cornice-box" onclick="location.href='ingresso-1.html'"><img src="assets/ingresso-1.jpg" class="mappa-img"><div class="label-ingresso">Ingresso 1</div></div>
-        <div class="cornice-box" onclick="location.href='ingresso-2.html'"><img src="assets/ingresso-2.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
+        <div class="cornice-box cornice-boxt" onclick="location.href='ingresso-2.html'"><img src="assets/ingresso-2t.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
         <div class="cornice-box" onclick="location.href='ingresso-3.html'"><img src="assets/ingresso-3.png" class="mappa-img"><div class="label-ingresso">Ingresso 3</div></div>
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-4'"><img src="assets/ingresso-4.png" class="mappa-img"><div class="label-ingresso">Ingresso 4</div></div>
+        <div class="cornice-box" onclick="location.href='ingresso-4.html'"><img src="assets/ingresso-4.png" class="mappa-img"><div class="label-ingresso">Ingresso 4</div></div>
         
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-5'"><img src="assets/ingresso-5.png" class="mappa-img"><div class="label-ingresso">Ingresso 5</div></div>
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-6'"><img src="assets/ingresso-6.png" class="mappa-img"><div class="label-ingresso">Ingresso 6</div></div>
-        <div class="cornice-box" onclick="window.top.location.href='https://7ites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-7'"><img src="assets/ingresso-7.png" class="mappa-img"><div class="label-ingresso">Ingresso 7</div></div>
-        <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-8'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
+        <div class="cornice-box" onclick="location.href='ingresso-5.html'"><img src="assets/ingresso-5.png" class="mappa-img"><div class="label-ingresso">Ingresso 5</div></div>
+        <div class="cornice-box" onclick="location.href='ingresso-6.html'"><img src="assets/ingresso-6.png" class="mappa-img"><div class="label-ingresso">Ingresso 6</div></div>
+        <div class="cornice-box" onclick="location.href='ingresso-7.html'"><img src="assets/ingresso-7.png" class="mappa-img"><div class="label-ingresso">Ingresso 7</div></div>
+        <div class="cornice-box" onclick="location.href='ingresso-8.html'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
     </div>
 <script>
 	//document.getElementById('mobile-menu').onclick = function() {
