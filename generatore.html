@@ -140,6 +140,103 @@
             .box-rosso h2 { font-size: 1.2em; }
             .box-rosso p { font-size: 0.8em; }
         }
+		
+/* Stili Base */
+.navbar {
+    background-color: #1a1a1a; /* Grigio molto scuro quasi nero */
+    width: 100%;               /* Piena larghezza */
+    font-family: Arial, sans-serif;
+    position: fixed;           /* Opzionale: resta in alto mentre scorri */
+    top: 0;
+    left: 0;
+    z-index: 2000;             /* Sopra tutto */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.nav-list {
+    max-width: 1200px;         /* Contenuto centrato nella barra */
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+/* Aggiungi un margine al body così il logo non finisce sotto il menu fisso */
+body {
+    padding-top: 50px; 
+}
+
+.nav-item > a {
+    color: white;
+    padding: 15px 20px;
+    display: block;
+    text-decoration: none;
+}
+
+/* Sottomenu */
+ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
+    display: none;
+    position: absolute;
+    background-color: #444;
+    list-style: none;
+    padding: 0;
+    min-width: 160px;
+}
+
+.has-dropdown:hover > ul {
+    display: block;
+}
+
+/* Posizionamento sottomenu a cascata (Destra) */
+.dropdown-level-2, .dropdown-level-3 {
+    left: 100%;
+    top: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    display: block;
+}
+
+.navbar li:hover {
+    background-color: #555;
+}
+
+/* Responsive per Smartphone */
+@media screen and (max-width: 768px) {
+    .nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .nav-list.active {
+        display: flex;
+    }
+
+    .dropdown-level-1, .dropdown-level-2, .dropdown-level-3 {
+        position: static; /* Rende il menu verticale */
+        width: 100%;
+        background-color: #555;
+    }
+
+    .menu-toggle {
+        display: block;
+        padding: 15px;
+        cursor: pointer;
+        color: white;
+    }
+
+    .bar {
+        display: block;
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        background-color: white;
+    }
+}		
     </style>
 	<script>
 	  (function() {
@@ -159,7 +256,7 @@
         //document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
 		console.log('rimando a google');
         setTimeout(() => {
-            window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
+          //  window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
         }, 100);
     } else {
         // Accesso OK: Salva nella sessione per le altre pagine del dungeon
@@ -170,6 +267,7 @@
 	</script>	
 </head>
 <body>
+	<div id="menu-container"></div>
 
     <img src="assets/Logo_DT_Esteso_Nero.png" class="header-logo">
 
@@ -192,13 +290,23 @@
         <div class="cornice-box" onclick="window.top.location.href='https://sites.google.com/view/generatore-dungeontales/generatore/ingressi/ingresso-tipo-8'"><img src="assets/ingresso-8.png" class="mappa-img"><div class="label-ingresso">Ingresso 8</div></div>
     </div>
 <script>
-	function inviaComando(urlDestinazione) {
-		console.log('inviaComando:' + urlDestinazione);
-		window.parent.postMessage({
-			tipo: 'NAVIGAZIONE_SITES',
-			destinazione: urlDestinazione
-		}, '*');
-	}
+	//document.getElementById('mobile-menu').onclick = function() {
+	//	document.querySelector('.nav-list').classList.toggle('active');
+	//};	
+	
+	fetch('menu.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('menu-container').innerHTML = data;
+
+        // Re-inizializza il tasto mobile dopo il caricamento
+        const mobileMenu = document.getElementById('mobile-menu');
+        if(mobileMenu) {
+            mobileMenu.onclick = function() {
+                document.querySelector('.nav-list').classList.toggle('active');
+            };
+        }
+    });
 </script>
 </body>
 </html>
