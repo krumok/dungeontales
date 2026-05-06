@@ -2,9 +2,11 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Archivio Esplorazione - Dungeon Tales</title>
+    <title>Archivio Esplorazione</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+		
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/menu.css">
     
     <style>
         body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
@@ -89,88 +91,90 @@
     </style>
 </head>
 <body>
+	<div id="menu-container"></div>
 
-<div class="split-container">
-    <div class="sidebar">
-        <p class="tithead">Archivio Generatore</p>
-        <div class="toolbar">
-            <button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto</button>
-        </div>
-        <div id="lista-history"></div>
-    </div>
+	<div class="split-container">
+		<div class="sidebar">
+			<p class="tithead">Archivio Generatore</p>
+			<div class="toolbar">
+				<button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto</button>
+			</div>
+			<div id="lista-history"></div>
+		</div>
 
-    <div class="preview-area" id="anteprima-dungeon">
-        <p style="text-align: center; color: #888; margin-top: 50px; font-style: italic;">
-            Seleziona un ambiente dall'elenco per visualizzare i dettagli.
-        </p>
-    </div>
-</div>
+		<div class="preview-area" id="anteprima-dungeon">
+			<p style="text-align: center; color: #888; margin-top: 50px; font-style: italic;">
+				Seleziona un ambiente dall'elenco per visualizzare i dettagli.
+			</p>
+		</div>
+	</div>
 
-<div id="custom-confirm" class="modal-overlay" style="display:none;">
-  <div class="modal-content">
-    <p class="basep"><b>ATTENZIONE:</b><br>Vuoi davvero svuotare l'intero archivio degli ambienti?</p>
-    <div class="modal-buttons">
-      <button class="dungeon-btn confirm-btn" onclick="eseguiReset()">SÌ, CANCELLA</button>
-      <button class="dungeon-btn cancel-btn" onclick="chiudiConfirm()">ANNULLA</button>
-    </div>
-  </div>
-</div>
+	<div id="custom-confirm" class="modal-overlay" style="display:none;">
+	  <div class="modal-content">
+		<p class="basep"><b>ATTENZIONE:</b><br>Vuoi davvero svuotare l'intero archivio degli ambienti?</p>
+		<div class="modal-buttons">
+		  <button class="dungeon-btn confirm-btn" onclick="eseguiReset()">SÌ, CANCELLA</button>
+		  <button class="dungeon-btn cancel-btn" onclick="chiudiConfirm()">ANNULLA</button>
+		</div>
+	  </div>
+	</div>
+	
+	<script src="js/menu.js" defer></script>
 
-<script>
-    let dungeonDati = [];
+	<script>
+		let dungeonDati = [];
 
-    function caricaArchivio() {
-        const listaDiv = document.getElementById('lista-history');
-        // Usiamo la chiave 'dungeon_history' che abbiamo definito in dungeon-core.js
-        dungeonDati = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
+		function caricaArchivio() {
+			const listaDiv = document.getElementById('lista-history');
+			// Usiamo la chiave 'dungeon_history' che abbiamo definito in dungeon-core.js
+			dungeonDati = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
 
-        if (dungeonDati.length === 0) {
-            listaDiv.innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun ambiente salvato.</p>';
-            return;
-        }
+			if (dungeonDati.length === 0) {
+				listaDiv.innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun ambiente salvato.</p>';
+				return;
+			}
 
-        listaDiv.innerHTML = dungeonDati.map((item, index) => `
-            <div class="history-card" onclick="mostraDettaglio(${index}, this)">
-                <span class="card-title">${item.tipo}</span>
-                <span class="card-date">${item.orario}</span>
-            </div>
-        `).join('');
-    }
+			listaDiv.innerHTML = dungeonDati.map((item, index) => `
+				<div class="history-card" onclick="mostraDettaglio(${index}, this)">
+					<span class="card-title">${item.tipo}</span>
+					<span class="card-date">${item.orario}</span>
+				</div>
+			`).join('');
+		}
 
-    function mostraDettaglio(index, elemento) {
-        // Rimuovi classe active dagli altri
-        document.querySelectorAll('.history-card').forEach(c => c.classList.remove('active'));
-        elemento.classList.add('active');
+		function mostraDettaglio(index, elemento) {
+			// Rimuovi classe active dagli altri
+			document.querySelectorAll('.history-card').forEach(c => c.classList.remove('active'));
+			elemento.classList.add('active');
 
-        const preview = document.getElementById('anteprima-dungeon');
-        preview.innerHTML = `
-            <div style="margin-bottom: 10px; border-bottom: 1px solid #d2b48c; padding-bottom: 5px;">
-                <span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DATA GENERAZIONE: ${dungeonDati[index].orario}</span>
-            </div>
-            ${dungeonDati[index].testo}
-        `;
-    }
+			const preview = document.getElementById('anteprima-dungeon');
+			preview.innerHTML = `
+				<div style="margin-bottom: 10px; border-bottom: 1px solid #d2b48c; padding-bottom: 5px;">
+					<span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DATA GENERAZIONE: ${dungeonDati[index].orario}</span>
+				</div>
+				${dungeonDati[index].testo}
+			`;
+		}
 
-	// Questa funzione viene chiamata dal pulsante "Svuota Archivio" principale
-	function resetLocalStorage() {
-		// Invece del confirm() del browser, mostriamo il nostro DIV
-		document.getElementById('custom-confirm').style.display = 'flex';
-	}
+		// Questa funzione viene chiamata dal pulsante "Svuota Archivio" principale
+		function resetLocalStorage() {
+			// Invece del confirm() del browser, mostriamo il nostro DIV
+			document.getElementById('custom-confirm').style.display = 'flex';
+		}
 
-	// Se l'utente clicca su "ANNULLA"
-	function chiudiConfirm() {
-		document.getElementById('custom-confirm').style.display = 'none';
-	}
+		// Se l'utente clicca su "ANNULLA"
+		function chiudiConfirm() {
+			document.getElementById('custom-confirm').style.display = 'none';
+		}
 
-	// Se l'utente clicca su "SÌ, CANCELLA"
-	function eseguiReset() {
-		localStorage.removeItem('dungeon_history'); // Assicurati che la chiave sia corretta
-		chiudiConfirm();
-		location.reload(); // Ricarica la pagina per aggiornare la lista
-	}
+		// Se l'utente clicca su "SÌ, CANCELLA"
+		function eseguiReset() {
+			localStorage.removeItem('dungeon_history'); // Assicurati che la chiave sia corretta
+			chiudiConfirm();
+			location.reload(); // Ricarica la pagina per aggiornare la lista
+		}
 
-    window.onload = caricaArchivio;
-</script>
-
+		window.onload = caricaArchivio;
+	</script>
 </body>
 </html>
