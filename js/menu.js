@@ -1,6 +1,6 @@
-	//document.getElementById('mobile-menu').onclick = function() {
-	//	document.querySelector('.nav-list').classList.toggle('active');
-	//};	
+	document.getElementById('mobile-menu').onclick = function() {
+		document.querySelector('.nav-list').classList.toggle('active');
+	};	
 	
 	fetch('menu.html')
     .then(response => response.text())
