@@ -1,4 +1,3 @@
-<script>
 fetch('menu.html')
     .then(response => response.text())
     .then(data => {
@@ -44,4 +43,3 @@ fetch('menu.html')
             document.querySelectorAll('.has-dropdown').forEach(li => li.classList.remove('open'));
         });
     });
-</script>
