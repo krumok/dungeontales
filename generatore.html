@@ -138,9 +138,12 @@
 
         /* PUNTO 2: RESPONSIVE PER SMARTPHONE */
         @media (max-width: 900px) {
-            body {
-                background-size: cover; /* La pergamena si adatta allo schermo piccolo */
-            }
+			body {
+			        background-size: 100% auto; /* L'immagine si adatta alla larghezza, l'altezza segue */
+			        background-attachment: scroll; /* Importante per evitare bug su iOS */
+			        background-color: #000; /* Il nero riempie dove la pergamena finisce */
+			}
+			
             .grid-ingressi {
                 grid-template-columns: repeat(2, 160px); /* 2 per riga su mobile */
                 gap: 50px 15px;
