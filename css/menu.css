@@ -94,4 +94,15 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
         margin: 5px auto;
         background-color: white;
     }
+    
+    .has-dropdown.open > ul {
+        display: block !important;
+        position: static; /* Fa sì che il menu spinga verso il basso il resto */
+        background-color: #444;
+    }
+    
+    /* Piccola freccetta per indicare che è aperto */
+    .has-dropdown.open > a::after {
+        content: " ▾";
+    }    
 }		
