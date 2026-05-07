@@ -64,20 +64,8 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
 
 /* Responsive per Smartphone */
 @media screen and (max-width: 768px) {
-    .nav-list {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-    }
-
     .nav-list.active {
         display: flex;
-    }
-
-    .dropdown-level-1, .dropdown-level-2, .dropdown-level-3 {
-        position: static; /* Rende il menu verticale */
-        width: 100%;
-        background-color: #555;
     }
 
     .menu-toggle {
@@ -105,4 +93,47 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
     .has-dropdown.open > a::after {
         content: " ▾";
     }    
+	
+	.nav-list {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: #1a1a1a;
+        position: absolute;
+        top: 50px;
+        left: 0;
+    }
+
+    /* Nascondi i sottomenu di default su mobile */
+    .dropdown-level-1, .dropdown-level-2, .dropdown-level-3 {
+        display: none !important; 
+        position: static !important;
+        width: 100% !important;
+        background-color: #2a2a2a !important;
+        box-shadow: none !important;
+    }
+
+    /* Mostra il sottomenu solo quando il genitore ha la classe .open */
+    .has-dropdown.open > .dropdown-level-1,
+    .has-dropdown.open > .dropdown-level-2,
+    .has-dropdown.open > .dropdown-level-3 {
+        display: block !important;
+    }
+
+    /* Indentazione per far capire i livelli */
+    .dropdown-level-1 { padding-left: 15px; }
+    .dropdown-level-2 { padding-left: 20px; }
+    .dropdown-level-3 { padding-left: 25px; }
+
+    /* Indicatore visivo per i sottomenu */
+    .has-dropdown > a::after {
+        content: " ▼";
+        font-size: 0.8em;
+        float: right;
+        transition: transform 0.3s;
+    }
+    
+    .has-dropdown.open > a::after {
+        transform: rotate(180deg);
+    }	
 }		

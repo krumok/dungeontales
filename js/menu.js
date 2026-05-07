@@ -3,9 +3,10 @@ fetch('menu.html')
     .then(data => {
         document.getElementById('menu-container').innerHTML = data;
 
-        // 1. Gestione apertura/chiusura menu principale (hamburger)
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.querySelector('.nav-list');
+
+        // Toggle del menu principale (Hamburger)
         if (mobileMenu) {
             mobileMenu.onclick = function(e) {
                 e.stopPropagation();
@@ -13,33 +14,37 @@ fetch('menu.html')
             };
         }
 
-        // 2. Gestione sottomenu su Mobile
+        // Gestione Sottomenu per Mobile
         const dropdowns = document.querySelectorAll('.has-dropdown > a');
         
-        dropdowns.forEach(dropdown => {
-            dropdown.addEventListener('click', function(e) {
-                // Eseguiamo questa logica solo se siamo su uno schermo piccolo
+        dropdowns.forEach(link => {
+            link.addEventListener('click', function(e) {
+                // Esegui solo se siamo in modalità mobile (larghezza < 768px)
                 if (window.innerWidth <= 768) {
                     const parentLi = this.parentElement;
-                    const isOpen = parentLi.classList.contains('open');
-
-                    // Se il sottomenu è chiuso, impedisci al link di cambiare pagina e aprilo
-                    if (!isOpen) {
+                    
+                    // Se il sottomenu è chiuso, impedisci la navigazione e apri
+                    if (!parentLi.classList.contains('open')) {
                         e.preventDefault();
-                        // Chiudi eventuali altri sottomenu aperti allo stesso livello
+                        e.stopPropagation();
+                        
+                        // Chiudi altri sottomenu aperti allo stesso livello
                         parentLi.parentElement.querySelectorAll('.has-dropdown').forEach(li => {
-                            li.classList.remove('open');
+                            if (li !== parentLi) li.classList.remove('open');
                         });
+                        
                         parentLi.classList.add('open');
-                    }
-                    // Se è già aperto (secondo tocco), seguirà il link normalmente
+                    } 
+                    // Se è già aperto, il secondo tocco seguirà il link (es. verso generatore.html)
                 }
             });
         });
 
-        // Chiudi il menu se si clicca fuori
-        document.addEventListener('click', () => {
-            if (navList) navList.classList.remove('active');
-            document.querySelectorAll('.has-dropdown').forEach(li => li.classList.remove('open'));
+        // Chiudi tutto se clicchi fuori dal menu
+        document.addEventListener('click', (e) => {
+            if (!navList.contains(e.target) && !mobileMenu.contains(e.target)) {
+                navList.classList.remove('active');
+                document.querySelectorAll('.has-dropdown').forEach(li => li.classList.remove('open'));
+            }
         });
     });
