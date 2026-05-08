@@ -38,9 +38,11 @@
             width: 100%;
             max-width: 1200px;
             text-align: center;
-            padding: 14px 0;
-            margin-bottom: 50px;
+            padding: 4px 0;
         }
+		.box_space50 {
+			height: 30px;
+		}
 
         /* Cornice Rossa Interna */
         .box-rosso {
@@ -67,7 +69,31 @@
             font-size: 1em;
             color: #FFF;
         }
+        .box-rosso1r {
+			background-image: url(assets/cornice1.png);
+			background-size: 100% 100%;
+			background-repeat: no-repeat;
+			background-position: center;
+			padding: 32px 10px 14px 10px;
+			display: inline-block;
+			width: 520px;
+			height: 60px;
+			max-width: 90%;
+        }
 
+        .box-rosso1r h2 {
+            margin: 0;
+            font-size: 1.6em;
+            color: #FFF;
+            text-transform: uppercase;
+        }
+
+        .box-rosso1r p {
+            margin: 5px 0 0 0;
+            font-size: 1em;
+            color: #FFF;
+        }
+		
         /* PUNTO 1: Griglia per 8 ingressi (4 per riga) */
         .grid-ingressi {
             display: grid;
@@ -221,6 +247,7 @@
             <p>Tirare <b>1D8</b> per il tipo di ingresso e cliccare sull'ingresso corrispondente</p>
         </div>
     </div>
+	<div class="box_space50">&nbsp;</div>
 
     <div class="grid-ingressi">
 		<div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-1.html'"><img src="assets/ingresso-1t.png" class="mappa-img"><div class="label-ingresso">Ingresso 1</div></div>
@@ -241,7 +268,7 @@
     </div>
 
     <div class="banner-istruzioni">
-        <div class="box-rosso">
+        <div class="box-rosso1r">
             <h2>Stanze 1V</h2>
         </div>
     </div>
@@ -253,6 +280,12 @@
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=4'"><img src="assets/14.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 4</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=5'"><img src="assets/15.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 5</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=6'"><img src="assets/16.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 6</div></div>
+    </div>
+
+    <div class="banner-istruzioni">
+        <div class="box-rosso1r">
+            <h2>Stanze 2V</h2>
+        </div>
     </div>
 
     <div class="grid-stanze">
