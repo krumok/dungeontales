@@ -78,6 +78,15 @@
             max-width: 1000px;
             padding-bottom: 100px;
         }
+        .grid-stanze {
+            display: grid;
+            grid-template-columns: repeat(3, 220px); 
+            gap: 40px 20px; /* Spazio verticale 40px, orizzontale 20px */
+            justify-content: center;
+            width: 100%;
+            max-width: 1000px;
+            padding-bottom: 100px;
+        }
 
         .cornice-box {
             position: relative;
@@ -153,6 +162,11 @@
                 grid-template-columns: repeat(2, 160px); /* 2 per riga su mobile */
                 gap: 50px 15px;
             }
+            .grid-stanze {
+                grid-template-columns: repeat(2, 160px); /* 2 per riga su mobile */
+                gap: 50px 15px;
+            }
+			
             .cornice-box {
                 width: 160px;
                 height: 220px;
@@ -213,7 +227,6 @@
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-2.html'"><img src="assets/ingresso-2t.png" class="mappa-img"><div class="label-ingresso">Ingresso 2</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-3.html'"><img src="assets/ingresso-3t.png" class="mappa-img"><div class="label-ingresso">Ingresso 3</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-4.html'"><img src="assets/ingresso-4t.png" class="mappa-img"><div class="label-ingresso">Ingresso 4</div></div>
-        
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-5.html'"><img src="assets/ingresso-5t.png" class="mappa-img"><div class="label-ingresso">Ingresso 5</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-6.html'"><img src="assets/ingresso-6t.png" class="mappa-img"><div class="label-ingresso">Ingresso 6</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='ingresso-7.html'"><img src="assets/ingresso-7t.png" class="mappa-img"><div class="label-ingresso">Ingresso 7</div></div>
@@ -233,7 +246,7 @@
         </div>
     </div>
 
-    <div class="grid-ingressi">
+    <div class="grid-stanze">
 		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=1'"><img src="assets/11.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 1</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=2'"><img src="assets/12.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 2</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=3'"><img src="assets/13.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 3</div></div>
@@ -242,7 +255,7 @@
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-1v.html?img=6'"><img src="assets/16.png" class="mappa-img"><div class="label-ingresso">Stanza 1V 6</div></div>
     </div>
 
-    <div class="grid-ingressi">
+    <div class="grid-stanze">
 		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-2v.html?img=1'"><img src="assets/21.png" class="mappa-img"><div class="label-ingresso">Stanza 2V 1</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-2v.html?img=2'"><img src="assets/22.png" class="mappa-img"><div class="label-ingresso">Stanza 2V 2</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-2v.html?img=3'"><img src="assets/23.png" class="mappa-img"><div class="label-ingresso">Stanza 2V 3</div></div>
@@ -251,13 +264,40 @@
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-2v.html?img=6'"><img src="assets/26.png" class="mappa-img"><div class="label-ingresso">Stanza 2V 6</div></div>
     </div>
 
-    <div class="grid-ingressi">
+    <div class="grid-stanze">
 		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=1'"><img src="assets/31.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 1</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=2'"><img src="assets/32.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 2</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=3'"><img src="assets/33.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 3</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=4'"><img src="assets/34.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 4</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=5'"><img src="assets/35.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 5</div></div>
         <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-3v.html?img=6'"><img src="assets/36.png" class="mappa-img"><div class="label-ingresso">Stanza 3V 6</div></div>
+    </div>
+
+    <div class="grid-stanze">
+		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=1'"><img src="assets/41.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 1</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=2'"><img src="assets/42.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 2</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=3'"><img src="assets/43.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 3</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=4'"><img src="assets/44.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 4</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=5'"><img src="assets/45.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 5</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-4v.html?img=6'"><img src="assets/46.png" class="mappa-img"><div class="label-ingresso">Stanza 4V 6</div></div>
+    </div>
+
+    <div class="grid-stanze">
+		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=1'"><img src="assets/51.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 1</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=2'"><img src="assets/52.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 2</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=3'"><img src="assets/53.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 3</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=4'"><img src="assets/54.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 4</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=5'"><img src="assets/55.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 5</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-5v.html?img=6'"><img src="assets/56.png" class="mappa-img"><div class="label-ingresso">Stanza 5V 6</div></div>
+    </div>
+
+    <div class="grid-stanze">
+		<div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=1'"><img src="assets/61.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 1</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=2'"><img src="assets/62.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 2</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=3'"><img src="assets/63.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 3</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=4'"><img src="assets/64.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 4</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=5'"><img src="assets/65.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 5</div></div>
+        <div class="cornice-box cornice-boxb60" onclick="location.href='stanza-6v.html?img=6'"><img src="assets/66.png" class="mappa-img"><div class="label-ingresso">Stanza 6V 6</div></div>
     </div>
 	
 	<script src="js/menu.js" defer></script>
