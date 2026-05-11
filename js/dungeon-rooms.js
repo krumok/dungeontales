@@ -78,6 +78,7 @@ function avviaStanza(dati) {
     output2.innerHTML = html2;
 
     // Salvataggio automatico per cronologia
+	console.log(typeof salvaInCronologia);
     if (typeof salvaInCronologia === "function") setTimeout(salvaInCronologia, 1000);
 }
 
@@ -257,4 +258,17 @@ function lanciaRisorsa(tabella) {
     
     // Visualizza (l'ultima ricerca appare in alto)
     el.innerHTML = nuovo + el.innerHTML;
+}
+
+function salvaInCronologia() {
+    let cronologia = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
+    let nuovaEntrata = {
+        id: Date.now(),
+        tipo: document.title,
+        testo: document.getElementById('div_main').innerHTML,
+        orario: new Date().toLocaleString()
+    };
+    cronologia.unshift(nuovaEntrata);
+    localStorage.setItem('dungeon_history', JSON.stringify(cronologia.slice(0, 50))); // Teniamo le ultime 50
+    localStorage.setItem('dungeon_history', JSON.stringify(cronologia));
 }
