@@ -15,7 +15,7 @@ body {
 } 
 
 .main-container {
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
 }
 
@@ -127,4 +127,8 @@ body {
         width: 100%;
         display: block;
     }
+
+	.main-container {
+		margin: 0 10px;
+	}	
 }
