@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="css/menu.css">
     <style>
         body {
@@ -252,33 +253,76 @@
 		
 		window.onload = function() {
 			const sessioneAttiva = localStorage.getItem('current_dungeon_name');
-			const sessioniEsistenti = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+			const modal = document.getElementById('modal-sessione');
+			const divScelta = document.getElementById('scelta-iniziale');
+			const divInput = document.getElementById('input-nuovo-dungeon');
 
 			if (sessioneAttiva) {
-				// Chiedi se continuare o cambiare
-				const continua = confirm(`Stai lavorando nel dungeon: "${sessioneAttiva}". Vuoi continuare questo? \n(Annulla per creare un nuovo dungeon)`);
-				
-				if (!continua) {
-					nuovoDungeon();
-				}
+				// Se esiste una sessione, chiediamo se continuare
+				document.getElementById('nome-sessione-attiva').innerText = sessioneAttiva;
+				modal.style.display = 'flex';
+				divScelta.style.display = 'block';
+				divInput.style.display = 'none';
 			} else {
-				nuovoDungeon();
+				// Se non esiste, mostriamo subito l'input per il nuovo nome
+				modal.style.display = 'flex';
+				divScelta.style.display = 'none';
+				divInput.style.display = 'block';
 			}
 		};
 
-		function nuovoDungeon() {
-			let nome = prompt("Inserisci il nome per il nuovo Dungeon:");
-			if (!nome || nome.trim() === "") nome = "Dungeon senza nome " + new Date().toLocaleDateString();
+		function continuaDungeon() {
+			document.getElementById('modal-sessione').style.display = 'none';
+			// La sessione è già impostata in localStorage, non dobbiamo fare altro
+		}
+
+		function mostraInputNuovo() {
+			document.getElementById('scelta-iniziale').style.display = 'none';
+			document.getElementById('input-nuovo-dungeon').style.display = 'block';
+		}
+
+		function creaNuovoDungeon() {
+			let nome = document.getElementById('nuovo-nome-input').value;
+			if (!nome || nome.trim() === "") {
+				nome = "Dungeon " + new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+			}
 			
 			localStorage.setItem('current_dungeon_name', nome);
-			alert("Nuovo dungeon creato: " + nome);
+			document.getElementById('modal-sessione').style.display = 'none';
+			
+			// Opzionale: inizializza la sessione nell'oggetto globale se vuoi
+			let sessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+			if (!sessioni[nome]) {
+				sessioni[nome] = [];
+				localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
+			}
 		}
 		
 		</script>	
 </head>
 <body>
 	<div id="menu-container"></div>
-
+	
+	<div id="modal-sessione" class="modal-overlay" style="display:none;">
+	  <div class="modal-content">
+		<div id="scelta-iniziale">
+			<p class="basep"><b>BENVENUTO AVVENTURIERO</b><br>È stata trovata una sessione attiva: <br><span id="nome-sessione-attiva" style="color:#8d2e2e; font-weight:bold;"></span></p>
+			<div class="modal-buttons">
+				<button class="dungeon-btn" onclick="continuaDungeon()">CONTINUA</button>
+				<button class="dungeon-btn cancel-btn" onclick="mostraInputNuovo()">NUOVO</button>
+			</div>
+		</div>
+		
+		<div id="input-nuovo-dungeon" style="display:none;">
+			<p class="basep"><b>NUOVA ESPLORAZIONE</b><br>Inserisci il nome del nuovo Dungeon:</p>
+			<input type="text" id="nuovo-nome-input" placeholder="Es: Antro dei Goblin..." style="width: 80%; padding: 8px; margin-bottom: 15px; border: 1px solid #5d4037;">
+			<div class="modal-buttons">
+				<button class="dungeon-btn" onclick="creaNuovoDungeon()">INIZIA</button>
+			</div>
+		</div>
+	  </div>
+	</div>
+	
     <img src="assets/Logo_DT_Esteso_Nero.png" class="header-logo">
 
     <div class="banner-istruzioni">

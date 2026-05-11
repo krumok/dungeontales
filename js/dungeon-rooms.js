@@ -77,9 +77,14 @@ function avviaStanza(dati) {
     output1.innerHTML = html1;
     output2.innerHTML = html2;
 
-    // Salvataggio automatico per cronologia
-	console.log(typeof salvaInCronologia);
-    if (typeof salvaInCronologia === "function") setTimeout(salvaInCronologia, 1000);
+	const nuovoAmbiente = {
+        tipo: document.title, // Es: "Ingresso 1"
+        testo: document.getElementById('div_main').innerHTML,
+        orario: new Date().toLocaleString()
+    };
+    setTimeout(function () {
+		salvaInArchivio(nuovoAmbiente);
+	}, 1000);
 }
 
 // --- 3. FUNZIONI DI SUPPORTO ---

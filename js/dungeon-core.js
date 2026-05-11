@@ -101,7 +101,15 @@ function avviaGenerazione(dati) {
     `;
 
     outputDiv.innerHTML = html;
-    setTimeout(salvaInCronologia, 1000);
+	
+	const nuovoAmbiente = {
+        tipo: document.title, // Es: "Ingresso 1"
+        testo: document.getElementById('div_main').innerHTML,
+        orario: new Date().toLocaleString()
+    };
+    setTimeout(function () {
+		salvaInArchivio(nuovoAmbiente);
+	}, 1000);
 }
 
 // --- 4. GESTIONE RISORSE (Il tasto Lancia D6) ---

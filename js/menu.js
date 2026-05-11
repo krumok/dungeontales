@@ -2,6 +2,12 @@ fetch('menu.html')
     .then(response => response.text())
     .then(data => {
         document.getElementById('menu-container').innerHTML = data;
+		
+		const nomeDungeon = localStorage.getItem('current_dungeon_name') || "Nessuna sessione";
+		const tagDungeon = document.createElement('div');
+		tagDungeon.id = 'dungeon-tag-overlay';
+		tagDungeon.innerHTML = `<span>Dungeon:</span> ${nomeDungeon}`;
+		document.body.appendChild(tagDungeon);
 
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.querySelector('.nav-list');

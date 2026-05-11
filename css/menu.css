@@ -62,6 +62,30 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
     background-color: #555;
 }
 
+#dungeon-tag-overlay {
+    position: fixed;
+    top: 60px; /* Sotto la barra del menu */
+    right: 15px;
+    background: #8d2e2e; /* Rosso scuro stile dungeon */
+    color: #f4ecd8;
+    padding: 4px 12px;
+    font-size: 0.75rem;
+    font-family: 'Garamond', serif;
+    border: 1px solid #f4ecd8;
+    border-radius: 0 0 8px 8px; /* Arrotondato solo sotto */
+    z-index: 1500;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+    pointer-events: none; /* Non intralcia i click */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+#dungeon-tag-overlay span {
+    font-weight: normal;
+    opacity: 0.8;
+    margin-right: 5px;
+}
+
 /* Responsive per Smartphone */
 @media screen and (max-width: 768px) {
     .nav-list.active {
@@ -136,4 +160,10 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
     .has-dropdown.open > a::after {
         transform: rotate(180deg);
     }	
+	
+	#dungeon-tag-overlay {
+        top: 50px;
+        right: 5px;
+        font-size: 0.65rem;
+    }
 }		
