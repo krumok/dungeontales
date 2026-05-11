@@ -216,25 +216,50 @@
 		}
 	  })();
 	  
-(function() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const segreto = urlParams.get('access');
-	console.log(segreto);
-    // Se il segreto non corrisponde a quello impostato nel pulsante nativo
-    if (segreto !== 'ALFA_99_OMEGA') {
-        // Mostra un messaggio e poi rimanda a Google Sites
-        //document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
-		console.log('rimando a google');
-        setTimeout(() => {
-          //  window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
-        }, 100);
-    } else {
-        // Accesso OK: Salva nella sessione per le altre pagine del dungeon
-		console.log('accesso ok');
-		sessionStorage.setItem('verified', 'true');
-    }
-})();
-	</script>	
+		(function() {
+			const urlParams = new URLSearchParams(window.location.search);
+			const segreto = urlParams.get('access');
+			console.log(segreto);
+			// Se il segreto non corrisponde a quello impostato nel pulsante nativo
+			if (segreto !== 'ALFA_99_OMEGA') {
+				// Mostra un messaggio e poi rimanda a Google Sites
+				//document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+				console.log('rimando a google');
+				setTimeout(() => {
+				  //  window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
+				}, 100);
+			} else {
+				// Accesso OK: Salva nella sessione per le altre pagine del dungeon
+				console.log('accesso ok');
+				sessionStorage.setItem('verified', 'true');
+			}
+		})();
+		
+		window.onload = function() {
+			const sessioneAttiva = localStorage.getItem('current_dungeon_name');
+			const sessioniEsistenti = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+
+			if (sessioneAttiva) {
+				// Chiedi se continuare o cambiare
+				const continua = confirm(`Stai lavorando nel dungeon: "${sessioneAttiva}". Vuoi continuare questo? \n(Annulla per creare un nuovo dungeon)`);
+				
+				if (!continua) {
+					nuovoDungeon();
+				}
+			} else {
+				nuovoDungeon();
+			}
+		};
+
+		function nuovoDungeon() {
+			let nome = prompt("Inserisci il nome per il nuovo Dungeon:");
+			if (!nome || nome.trim() === "") nome = "Dungeon senza nome " + new Date().toLocaleDateString();
+			
+			localStorage.setItem('current_dungeon_name', nome);
+			alert("Nuovo dungeon creato: " + nome);
+		}
+		
+		</script>	
 </head>
 <body>
 	<div id="menu-container"></div>

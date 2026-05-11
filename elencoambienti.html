@@ -96,8 +96,15 @@
 	<div class="split-container">
 		<div class="sidebar">
 			<p class="tithead">Archivio Generatore</p>
+			
+			<div style="margin-bottom:15px;">
+				<label style="font-size:0.7rem; color:#5d4037;">Seleziona Dungeon:</label>
+				<select id="select-dungeon" class="dungeon-btn" style="width:100%; height:auto;" onchange="cambiaDungeonVisualizzato()">
+				</select>
+			</div>
+
 			<div class="toolbar">
-				<button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto</button>
+				<button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto l'Archivio</button>
 			</div>
 			<div id="lista-history"></div>
 		</div>
@@ -122,25 +129,51 @@
 	<script src="js/menu.js" defer></script>
 
 	<script>
+		let tutteLeSessioni = {};
 		let dungeonDati = [];
 
 		function caricaArchivio() {
-			const listaDiv = document.getElementById('lista-history');
-			// Usiamo la chiave 'dungeon_history' che abbiamo definito in dungeon-core.js
-			dungeonDati = JSON.parse(localStorage.getItem('dungeon_history') || "[]");
+			const select = document.getElementById('select-dungeon');
+			tutteLeSessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+			
+			const nomiDungeon = Object.keys(tutteLeSessioni);
 
-			if (dungeonDati.length === 0) {
-				listaDiv.innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun ambiente salvato.</p>';
+			if (nomiDungeon.length === 0) {
+				select.innerHTML = '<option>Nessun Dungeon</option>';
+				document.getElementById('lista-history').innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun ambiente salvato.</p>';
 				return;
 			}
 
+			// Popola la select con i nomi dei dungeon
+			select.innerHTML = nomiDungeon.map(nome => `<option value="${nome}">${nome}</option>`).join('');
+			
+			// Carica l'ultimo dungeon selezionato (o il primo della lista)
+			cambiaDungeonVisualizzato();
+		}
+
+		function cambiaDungeonVisualizzato() {
+			const select = document.getElementById('select-dungeon');
+			const nomeSelezionato = select.value;
+			dungeonDati = tutteLeSessioni[nomeSelezionato] || [];
+
+			const listaDiv = document.getElementById('lista-history');
 			listaDiv.innerHTML = dungeonDati.map((item, index) => `
 				<div class="history-card" onclick="mostraDettaglio(${index}, this)">
 					<span class="card-title">${item.tipo}</span>
 					<span class="card-date">${item.orario}</span>
 				</div>
 			`).join('');
+			
+			document.getElementById('anteprima-dungeon').innerHTML = '<p style="text-align: center; color: #888; margin-top: 50px; font-style: italic;">Seleziona un ambiente.</p>';
 		}
+
+		// Aggiorna eseguiReset per pulire tutto
+		function eseguiReset() {
+			localStorage.removeItem('dungeon_sessions');
+			localStorage.removeItem('current_dungeon_name');
+			chiudiConfirm();
+			location.reload();
+		}		
 
 		function mostraDettaglio(index, elemento) {
 			// Rimuovi classe active dagli altri
@@ -165,13 +198,6 @@
 		// Se l'utente clicca su "ANNULLA"
 		function chiudiConfirm() {
 			document.getElementById('custom-confirm').style.display = 'none';
-		}
-
-		// Se l'utente clicca su "SÌ, CANCELLA"
-		function eseguiReset() {
-			localStorage.removeItem('dungeon_history'); // Assicurati che la chiave sia corretta
-			chiudiConfirm();
-			location.reload(); // Ricarica la pagina per aggiornare la lista
 		}
 
 		window.onload = caricaArchivio;

@@ -272,3 +272,21 @@ function salvaInCronologia() {
     localStorage.setItem('dungeon_history', JSON.stringify(cronologia.slice(0, 50))); // Teniamo le ultime 50
     localStorage.setItem('dungeon_history', JSON.stringify(cronologia));
 }
+
+function salvaInArchivio(nuovoAmbiente) {
+    const nomeDungeon = localStorage.getItem('current_dungeon_name');
+    if (!nomeDungeon) return; // Non salva se non c'è una sessione attiva
+
+    let sessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+    
+    // Se il dungeon non esiste nell'archivio, lo inizializziamo
+    if (!sessioni[nomeDungeon]) {
+        sessioni[nomeDungeon] = [];
+    }
+
+    // Aggiungiamo la stanza alla sessione corrente
+    sessioni[nomeDungeon].push(nuovoAmbiente);
+    
+    // Salviamo tutto l'oggetto sessioni
+    localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
+}
