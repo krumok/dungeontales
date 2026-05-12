@@ -17,15 +17,6 @@ fetch('menu.html')
 			}
 		}
 
-		// Nuova funzione per chiudere la sessione
-		function chiudiSessioneDungeon() {
-			if (confirm("Vuoi completare questa sessione? Non potrai più aggiungere stanze a questo dungeon senza riaprirlo dall'archivio.")) {
-				localStorage.removeItem('current_dungeon_name');
-				sessionStorage.removeItem('dungeon_scelta_fatta');
-				window.location.href = 'generatore.html';
-			}
-		}
-
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.querySelector('.nav-list');
 
@@ -71,3 +62,26 @@ fetch('menu.html')
             }
         });
     });
+
+// Funzione chiamata dal tasto "X" sull'etichetta
+function chiudiSessioneDungeon() {
+    const modal = document.getElementById('modal-chiudi-sessione');
+    if (modal) {
+        modal.style.display = 'flex';
+    }
+}
+
+// Funzione se l'utente clicca su "ANNULLA"
+function annullaChiudiSessione() {
+    document.getElementById('modal-chiudi-sessione').style.display = 'none';
+}
+
+// Funzione se l'utente clicca su "SÌ, COMPLETA"
+function eseguiChiudiSessione() {
+    localStorage.removeItem('current_dungeon_name');
+    sessionStorage.removeItem('dungeon_scelta_fatta');
+    
+    // Nascondi il modale e vai al generatore
+    document.getElementById('modal-chiudi-sessione').style.display = 'none';
+    window.location.href = 'generatore.html';
+}

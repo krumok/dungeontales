@@ -287,13 +287,15 @@
 		function creaNuovoDungeon() {
 			let nomeInput = document.getElementById('nuovo-nome-input');
 			let nome = nomeInput.value.trim();
+
 			if (nome === "") {
-				alert("Inserisci un nome!");
+				alert("Per favore, inserisci un nome per il nuovo Dungeon per procedere!");
+				nomeInput.focus();
 				return;
 			}
 			
 			localStorage.setItem('current_dungeon_name', nome);
-			sessionStorage.setItem('dungeon_scelta_fatta', 'true'); // Segniamo che la scelta è fatta
+			sessionStorage.setItem('dungeon_scelta_fatta', 'true');
 			
 			let sessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
 			if (!sessioni[nome]) {
@@ -301,12 +303,26 @@
 				localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
 			}
 
-			// Aggiorna etichetta se presente
-			const overlay = document.getElementById('dungeon-tag-overlay');
-			if (overlay) overlay.innerHTML = `<span>Dungeon:</span> ${nome}`;
+			// --- CORREZIONE ETICHETTA ---
+			let overlay = document.getElementById('dungeon-tag-overlay');
+			
+			// Se l'overlay non esiste (perché avevamo appena chiuso la sessione), lo creiamo
+			if (!overlay) {
+				overlay = document.createElement('div');
+				overlay.id = 'dungeon-tag-overlay';
+				document.body.appendChild(overlay);
+			}
+
+			// Reinseriamo il contenuto includendo il tasto X (esattamente come in menu.js)
+			overlay.innerHTML = `
+				<span>Dungeon:</span> ${nome}
+				<button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1.2rem; line-height:1;">&times;</button>
+			`;
+			// ----------------------------
 
 			document.getElementById('modal-sessione').style.display = 'none';
 		}
+		
 		function mostraInputNuovo() {
 			document.getElementById('scelta-iniziale').style.display = 'none';
 			document.getElementById('input-nuovo-dungeon').style.display = 'block';
@@ -324,7 +340,7 @@
 			<p class="basep"><b>BENVENUTO AVVENTURIERO</b><br>È stata trovato un dungeon da completare: <br><span id="nome-sessione-attiva" style="color:#8d2e2e; font-weight:bold;"></span></p>
 			<div class="modal-buttons">
 				<button class="dungeon-btn" onclick="continuaDungeon()">CONTINUA</button>
-				<button class="dungeon-btn cancel-btn" onclick="mostraInputNuovo()">NUOVO</button>
+				<button class="dungeon-btn" onclick="mostraInputNuovo()">NUOVO</button>
 			</div>
 		</div>
 		
