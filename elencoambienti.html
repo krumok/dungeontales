@@ -9,7 +9,25 @@
     <link rel="stylesheet" href="css/menu.css">
     
     <style>
-        body { margin: 0; padding: 0; height: 100vh; overflow: hidden; }
+		body {
+			background-color: #000; 
+			background-image: url('../assets/DT_Sfondo_Generatore2.png');
+			
+			/* MODIFICHE QUI: */
+			background-repeat: repeat-y; /* Si ripete solo in verticale */
+			background-position: top center;
+			background-attachment: scroll; /* Fondamentale per la fluidità su mobile */
+			
+			/* Gestione larghezza */
+			background-size: 1200px auto; 
+			
+			margin: 0;
+			padding: 0;
+			font-family: 'Garamond', serif;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
         
         .split-container {
             display: flex;
@@ -51,7 +69,7 @@
         .card-title { font-weight: bold; display: block; color: #5d4037; }
         .card-date { font-size: 0.75rem; color: #888; }
 
-        .toolbar { margin-bottom: 15px; text-align: center; }
+        .toolbar { margin-bottom: 10px; }
 
         /* Responsive per mobile */
         @media screen and (max-width: 768px) {
@@ -70,13 +88,24 @@
 	<div class="split-container">
 		<div class="sidebar">
 			<p class="tithead">Archivio Generatore</p>
-			
+						
 			<div style="margin-bottom:15px;">
 				<label style="font-size:0.7rem; color:#5d4037;">Seleziona Dungeon:</label>
 				<select id="select-dungeon" class="dungeon-btn" style="width:100%; height:auto;" onchange="cambiaDungeonVisualizzato()">
 				</select>
+				<button class="dungeon-btn" style="margin-top:5px; font-size: 0.7rem; padding: 5px;" onclick="confermaEliminaSingolo()">ELIMINA QUESTO DUNGEON</button>
 			</div>
 
+			<div id="confirm-delete-single" class="modal-overlay" style="display:none;">
+				<div class="modal-content">
+					<p class="basep">Sei sicuro di voler eliminare <b>definitivamente</b> questo dungeon e tutte le sue stanze?<br><br><span id="nome-da-eliminare" style="color:#8d2e2e; font-weight:bold;"></span></p>
+					<div class="modal-buttons">
+						<button class="dungeon-btn" onclick="eseguiEliminaSingolo()">ELIMINA</button>
+						<button class="dungeon-btn cancel-btn" onclick="chiudiConfirmSingolo()">ANNULLA</button>
+					</div>
+				</div>
+			</div>
+			
 			<div class="toolbar">
 				<button class="dungeon-btn" style="font-size: 0.7rem; padding: 5px;" onclick="resetLocalStorage()">Svuota Tutto l'Archivio</button>
 			</div>
@@ -108,21 +137,55 @@
 
 		function caricaArchivio() {
 			const select = document.getElementById('select-dungeon');
-			tutteLeSessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
-			
+			const tutteLeSessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
 			const nomiDungeon = Object.keys(tutteLeSessioni);
+			const attuale = localStorage.getItem('current_dungeon_name'); // Recuperiamo il dungeon attivo
 
 			if (nomiDungeon.length === 0) {
-				select.innerHTML = '<option>Nessun Dungeon</option>';
-				document.getElementById('lista-history').innerHTML = '<p style="font-size:0.8rem; text-align:center;">Nessun ambiente salvato.</p>';
+				select.innerHTML = '<option value="">Nessun Dungeon</option>';
+				document.getElementById('lista-history').innerHTML = '<p style="font-size:0.8rem; text-align:center; padding:20px;">Nessun ambiente salvato.</p>';
 				return;
 			}
 
-			// Popola la select con i nomi dei dungeon
+			// Popola la select
 			select.innerHTML = nomiDungeon.map(nome => `<option value="${nome}">${nome}</option>`).join('');
+
+			// PUNTO 1: Seleziona automaticamente il dungeon corrente se esiste
+			if (attuale && tutteLeSessioni[attuale]) {
+				select.value = attuale;
+			}
 			
-			// Carica l'ultimo dungeon selezionato (o il primo della lista)
 			cambiaDungeonVisualizzato();
+		}
+
+		// FUNZIONI PER L'ELIMINAZIONE SINGOLA
+		function confermaEliminaSingolo() {
+			const nome = document.getElementById('select-dungeon').value;
+			if (!nome || nome === "") return;
+			
+			document.getElementById('nome-da-eliminare').innerText = nome;
+			document.getElementById('confirm-delete-single').style.display = 'flex';
+		}
+
+		function chiudiConfirmSingolo() {
+			document.getElementById('confirm-delete-single').style.display = 'none';
+		}
+
+		function eseguiEliminaSingolo() {
+			const nomeDaEliminare = document.getElementById('select-dungeon').value;
+			let sessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
+
+			// Elimina la chiave specifica
+			delete sessioni[nomeDaEliminare];
+			localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
+
+			// Se abbiamo eliminato proprio il dungeon su cui stavamo lavorando nel generatore
+			if (localStorage.getItem('current_dungeon_name') === nomeDaEliminare) {
+				localStorage.removeItem('current_dungeon_name');
+			}
+
+			chiudiConfirmSingolo();
+			caricaArchivio(); // Ricarica la UI
 		}
 
 		function cambiaDungeonVisualizzato() {
@@ -161,11 +224,15 @@
 			// Rimuovi classe active dagli altri
 			document.querySelectorAll('.history-card').forEach(c => c.classList.remove('active'));
 			elemento.classList.add('active');
+			
+			const select = document.getElementById('select-dungeon');
+			const nomeSelezionato = select.value;
 
 			const preview = document.getElementById('anteprima-dungeon');
 			preview.innerHTML = `
 				<div style="margin-bottom: 10px; border-bottom: 1px solid #d2b48c; padding-bottom: 5px;">
-					<span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DATA GENERAZIONE: ${dungeonDati[index].orario}</span>
+					<span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DATA GENERAZIONE: ${dungeonDati[index].orario}</span><br>
+					<span style="font-size: 0.8rem; color: #b71c1c; font-weight: bold;">DUNGEON: ${nomeSelezionato}</span>
 				</div>
 				${dungeonDati[index].testo}
 			`;

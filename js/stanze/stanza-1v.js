@@ -1,12 +1,12 @@
 const DATI_STANZA = {
     titolo: "STANZA 1V",
     immagini: {
-        "1": "assets/stanza-1-1v.jpg",
-        "2": "assets/stanza-2-1v.jpg",
-        "3": "assets/stanza-3-1v.jpg",
-        "4": "assets/stanza-4-1v.jpg",
-        "5": "assets/stanza-5-1v.jpg",
-        "6": "assets/stanza-6-1v.jpg"
+        "1": "assets/11.png",
+        "2": "assets/12.png",
+        "3": "assets/13.png",
+        "4": "assets/14.png",
+        "5": "assets/15.png",
+        "6": "assets/16.png"
     },
 	descrizioni: [
 		["Odore di carne bruciata e sangue fresco", "Sentite un intenso profumo di incensi e spezie", "Filtra acqua dal soffitto"], // Gruppo 1

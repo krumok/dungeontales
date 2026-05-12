@@ -252,51 +252,66 @@
 		})();
 		
 		window.onload = function() {
+			// sessionStorage dura solo finché la scheda è aperta
+			const sceltaEffettuataInQuestaSessione = sessionStorage.getItem('dungeon_scelta_fatta');
 			const sessioneAttiva = localStorage.getItem('current_dungeon_name');
+			
 			const modal = document.getElementById('modal-sessione');
 			const divScelta = document.getElementById('scelta-iniziale');
 			const divInput = document.getElementById('input-nuovo-dungeon');
 
+			// Se l'utente ha già risposto durante questa navigazione, non chiediamo nulla
+			if (sceltaEffettuataInQuestaSessione === 'true' && sessioneAttiva) {
+				modal.style.display = 'none';
+				return;
+			}
+
+			// Altrimenti, procediamo con la domanda
+			modal.style.display = 'flex';
 			if (sessioneAttiva) {
-				// Se esiste una sessione, chiediamo se continuare
 				document.getElementById('nome-sessione-attiva').innerText = sessioneAttiva;
-				modal.style.display = 'flex';
 				divScelta.style.display = 'block';
 				divInput.style.display = 'none';
 			} else {
-				// Se non esiste, mostriamo subito l'input per il nuovo nome
-				modal.style.display = 'flex';
 				divScelta.style.display = 'none';
 				divInput.style.display = 'block';
 			}
 		};
 
+		// Modifichiamo le funzioni di chiusura per salvare lo stato della sessione
 		function continuaDungeon() {
+			sessionStorage.setItem('dungeon_scelta_fatta', 'true');
 			document.getElementById('modal-sessione').style.display = 'none';
-			// La sessione è già impostata in localStorage, non dobbiamo fare altro
-		}
-
-		function mostraInputNuovo() {
-			document.getElementById('scelta-iniziale').style.display = 'none';
-			document.getElementById('input-nuovo-dungeon').style.display = 'block';
 		}
 
 		function creaNuovoDungeon() {
-			let nome = document.getElementById('nuovo-nome-input').value;
-			if (!nome || nome.trim() === "") {
-				nome = "Dungeon " + new Date().toLocaleDateString() + " " + new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+			let nomeInput = document.getElementById('nuovo-nome-input');
+			let nome = nomeInput.value.trim();
+			if (nome === "") {
+				alert("Inserisci un nome!");
+				return;
 			}
 			
 			localStorage.setItem('current_dungeon_name', nome);
-			document.getElementById('modal-sessione').style.display = 'none';
+			sessionStorage.setItem('dungeon_scelta_fatta', 'true'); // Segniamo che la scelta è fatta
 			
-			// Opzionale: inizializza la sessione nell'oggetto globale se vuoi
 			let sessioni = JSON.parse(localStorage.getItem('dungeon_sessions') || "{}");
 			if (!sessioni[nome]) {
 				sessioni[nome] = [];
 				localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
 			}
+
+			// Aggiorna etichetta se presente
+			const overlay = document.getElementById('dungeon-tag-overlay');
+			if (overlay) overlay.innerHTML = `<span>Dungeon:</span> ${nome}`;
+
+			document.getElementById('modal-sessione').style.display = 'none';
 		}
+		function mostraInputNuovo() {
+			document.getElementById('scelta-iniziale').style.display = 'none';
+			document.getElementById('input-nuovo-dungeon').style.display = 'block';
+		}
+		
 		
 		</script>	
 </head>
@@ -306,7 +321,7 @@
 	<div id="modal-sessione" class="modal-overlay" style="display:none;">
 	  <div class="modal-content">
 		<div id="scelta-iniziale">
-			<p class="basep"><b>BENVENUTO AVVENTURIERO</b><br>È stata trovata una sessione attiva: <br><span id="nome-sessione-attiva" style="color:#8d2e2e; font-weight:bold;"></span></p>
+			<p class="basep"><b>BENVENUTO AVVENTURIERO</b><br>È stata trovato un dungeon da completare: <br><span id="nome-sessione-attiva" style="color:#8d2e2e; font-weight:bold;"></span></p>
 			<div class="modal-buttons">
 				<button class="dungeon-btn" onclick="continuaDungeon()">CONTINUA</button>
 				<button class="dungeon-btn cancel-btn" onclick="mostraInputNuovo()">NUOVO</button>

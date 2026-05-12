@@ -1,12 +1,12 @@
 const DATI_STANZA = {
     titolo: "STANZA 2V",
     immagini: {
-        "1": "assets/2v1.png",
-        "2": "assets/2v2.png",
-        "3": "assets/2v3.png",
-        "4": "assets/2v4.png",
-        "5": "assets/2v5.png",
-        "6": "assets/2v6.png"
+        "1": "assets/21.png",
+        "2": "assets/22.png",
+        "3": "assets/23.png",
+        "4": "assets/24.png",
+        "5": "assets/25.png",
+        "6": "assets/26.png"
     },
     descrizioni: [
         ["Un sussurro spettrale vi avvolge all’improvviso", "Sentite clangori di battaglia!"],

@@ -3,11 +3,28 @@ fetch('menu.html')
     .then(data => {
         document.getElementById('menu-container').innerHTML = data;
 		
-		const nomeDungeon = localStorage.getItem('current_dungeon_name') || "Nessuna sessione";
-		const tagDungeon = document.createElement('div');
-		tagDungeon.id = 'dungeon-tag-overlay';
-		tagDungeon.innerHTML = `<span>Dungeon:</span> ${nomeDungeon}`;
-		document.body.appendChild(tagDungeon);
+		if (!window.location.pathname.includes('elencoambienti.html')) {
+			const nomeDungeon = localStorage.getItem('current_dungeon_name');
+			
+			if (nomeDungeon) {
+				const tagDungeon = document.createElement('div');
+				tagDungeon.id = 'dungeon-tag-overlay';
+				tagDungeon.innerHTML = `
+					<span>Dungeon:</span> ${nomeDungeon}
+					<button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1rem; line-height:1;">&times;</button>
+				`;
+				document.body.appendChild(tagDungeon);
+			}
+		}
+
+		// Nuova funzione per chiudere la sessione
+		function chiudiSessioneDungeon() {
+			if (confirm("Vuoi completare questa sessione? Non potrai più aggiungere stanze a questo dungeon senza riaprirlo dall'archivio.")) {
+				localStorage.removeItem('current_dungeon_name');
+				sessionStorage.removeItem('dungeon_scelta_fatta');
+				window.location.href = 'generatore.html';
+			}
+		}
 
         const mobileMenu = document.getElementById('mobile-menu');
         const navList = document.querySelector('.nav-list');
