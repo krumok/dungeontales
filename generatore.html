@@ -283,8 +283,28 @@
 			sessionStorage.setItem('dungeon_scelta_fatta', 'true');
 			document.getElementById('modal-sessione').style.display = 'none';
 		}
-
+		
+		function calcolaOccupazioneLS() {
+			let totaleByte = 0;
+			for (let chiave in localStorage) {
+				if (localStorage.hasOwnProperty(chiave)) {
+					// Chiave + Valore * 2 byte
+					totaleByte += (localStorage[chiave].length + chiave.length) * 2;
+				}
+			}
+			return totaleByte / (1024 * 1024); // Ritorna il valore in MB
+		}
+		
 		function creaNuovoDungeon() {
+			const LIMITE_MB = 4.5;
+			const occupazioneAttuale = calcolaOccupazioneLS();
+
+			if (occupazioneAttuale >= LIMITE_MB) {
+				alert("ATTENZIONE: Memoria quasi piena (" + occupazioneAttuale.toFixed(2) + "MB). \nDevi eliminare dei vecchi dungeon dall'Archivio per crearne di nuovi.");
+				window.location.href = 'elencoambienti.html';
+				return;
+			}		
+		
 			let nomeInput = document.getElementById('nuovo-nome-input');
 			let nome = nomeInput.value.trim();
 
