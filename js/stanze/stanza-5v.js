@@ -42,6 +42,8 @@ const DATI_STANZA = {
         "Trovi un <b>Tesoro Comune</b> (Vedi p.166)",
         "Trovi un <b>Indizio</b> (Vedi p.165)"
     ],
+	
+	testiScale: { su: "che salgono", giu: "che scendono" },
 
     // Trappole
     tipoTrappola: [
