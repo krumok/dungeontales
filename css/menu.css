@@ -196,7 +196,9 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
 	
 	#dungeon-tag-overlay {
         top: 60px;
-        right: 5px;
+        text-align: center;
         font-size: 0.65rem;
+		right:auto;
+		left:auto;
     }
 }		
