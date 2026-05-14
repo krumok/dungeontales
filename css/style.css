@@ -157,5 +157,6 @@ body {
 
 	.main-container {
 		margin: 0 10px;
+		min-width:auto;
 	}	
 }

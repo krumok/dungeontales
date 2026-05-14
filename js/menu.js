@@ -3,7 +3,7 @@ fetch('menu.html')
     .then(data => {
         document.getElementById('menu-container').innerHTML = data;
 		
-		if (!window.location.pathname.includes('elencoambienti.html')) {
+		if (!window.location.pathname.includes('elencoambienti.html') && !window.location.pathname.includes('istruzioni.html')) {
 			const nomeDungeon = localStorage.getItem('current_dungeon_name');
 			
 			if (nomeDungeon) {
