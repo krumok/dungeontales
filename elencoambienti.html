@@ -7,21 +7,27 @@
 		
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/menu.css">
-    
+	
     <style>
-		body {
-			background-color: #000; 
-			margin: 0;
-			padding: 0;
-			font-family: 'Garamond', serif;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
-		}
+        /* FIX FONDAMENTALE PER MOBILE: impedisce a padding e bordi di allargare la pagina */
+        *, *:before, *:after {
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000; 
+            margin: 0;
+            padding: 0;
+            font-family: 'Garamond', serif;
+            overflow: hidden; /* Evita il doppio scroll fastidioso della pagina intera */
+            width: 100%;
+        }
         
         .split-container {
             display: flex;
-            height: 100vh;
+            height: calc(100vh - 50px); /* Sottrae l'altezza della navbar */
+            margin-top: 1px; /* Lascia lo spazio per la navbar fixed */
+            width: 100%;
         }
 
         /* Colonna Sinistra: Elenco */
@@ -29,7 +35,7 @@
             width: 35%;
             border-right: 3px double #5d4037;
             background: #e4dcb7;
-            overflow-y: auto;
+            overflow-y: scroll; /* Forza la visualizzazione costante della barra */
             padding: 10px;
             display: flex;
             flex-direction: column;
@@ -38,14 +44,12 @@
         /* Colonna Destra: Anteprima */
         .preview-area {
             width: 65%;
-
-			background-color: #000; 
-		    background-image: url('assets/DT_Sfondo_Generatore2.png');
-		    
-		    /* MODIFICHE QUI: */
-		    background-repeat: repeat-y; /* Si ripete solo in verticale */
-		    background-position: top center;
-		    background-attachment: scroll; /* Fondamentale per la fluidità su mobile */            overflow-y: auto;
+            background-color: #000; 
+            background-image: url('assets/DT_Sfondo_Generatore2.png');
+            background-repeat: repeat-y; 
+            background-position: top center;
+            background-attachment: scroll; 
+            overflow-y: auto;
             padding: 10px;
         }
 
@@ -67,56 +71,49 @@
 
         .toolbar { margin-bottom: 10px; }
 		
-	.sidebar::-webkit-scrollbar { width: 14px; }
-    .sidebar::-webkit-scrollbar-thumb { 
-        background: #8d2e2e; 
-        border-radius: 10px; 
-        border: 3px solid #e4dcb7; 
-    }
-    .sidebar::-webkit-scrollbar-track { background: #d2c8a0; }		
+        .sidebar::-webkit-scrollbar { width: 14px; }
+        .sidebar::-webkit-scrollbar-thumb { 
+            background: #8d2e2e; 
+            border-radius: 10px; 
+            border: 3px solid #e4dcb7; 
+        }
+        .sidebar::-webkit-scrollbar-track { background: #d2c8a0; }		
 	
-	.frecciasu {
-		display:none;
-	}
-
-        /* Responsive per mobile
-        @media screen and (max-width: 768px) {
-            .split-container { flex-direction: column; width:90%; }
-            .sidebar { width: 100%; height: 40%; border-right: none; border-bottom: 5px double black; }
-            .preview-area { width: 100%; height: 60%; }
-        } */
+        .frecciasu {
+            display:none;
+        }
 		
-		@media screen and (max-width: 768px) {
-			.split-container {
-				flex-direction: column; /* Lista sopra, Anteprima sotto */
-			}
-			.sidebar {
-				width: 98%;
-				height: 50vh; /* Occupa il 35% dell'altezza schermo */
-				border-right: none;
-				border-bottom: 3px double #5d4037;
-			}
-			.preview-area {
-				width: 98%;
-				height: 50vh;
-			}
+        @media screen and (max-width: 768px) {
+            .split-container {
+                flex-direction: column; /* Lista sopra, Anteprima sotto */
+            }
+            .sidebar {
+                width: 100%; /* Riportato a 100% in totale sicurezza grazie al box-sizing */
+                height: 45vh; /* Bilanciato per distribuire lo schermo con la navbar */
+                border-right: none;
+                border-bottom: 3px double #5d4037;
+            }
+            .preview-area {
+                width: 100%; /* Riportato a 100% in totale sicurezza grazie al box-sizing */
+                height: 55vh;
+            }
 			
-			.history-card {
-				padding: 15px; /* Più grande per il tocco delle dita */
-				margin-bottom: 12px;
-				border: 2px solid #5d4037;
-					}
+            .history-card {
+                padding: 15px; 
+                margin-bottom: 12px;
+                border: 2px solid #5d4037;
+            }
 
-			.frecciasu {
-				font-style: normal; 
-				font-size:26px;
-				display: inline-block;
-			}					
-		}		
+            .frecciasu {
+                font-style: normal; 
+                font-size:26px;
+                display: inline-block;
+            }					
+        }		
 			
-		.confirm-btn { background-color: #8d2e2e !important; }
-		.cancel-btn { background-color: #5d4037 !important; }		
-		</style>
+        .confirm-btn { background-color: #8d2e2e !important; }
+        .cancel-btn { background-color: #5d4037 !important; }		
+    </style>
 	</head>
 	<body>
 		<div id="menu-container"></div>
