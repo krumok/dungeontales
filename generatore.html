@@ -239,8 +239,10 @@
 	  
 		(function() {
 		    const provenienza = document.referrer;
+			const lunghezzaCronologia = window.history.length;
 		    const giaVerificato = sessionStorage.getItem('verified') === 'true';
 		    console.log('referrer ' + provenienza);
+			console.log('history ' + lunghezzaCronologia);
 		    // Controlla se la pagina di provenienza contiene l'URL del tuo sito Google Sites
 		    const provieneDaGoogleSites = provenienza.includes('google.com');
 			console.log(provieneDaGoogleSites);
