@@ -244,7 +244,8 @@
 			// Se il segreto non corrisponde a quello impostato nel pulsante nativo
 			if (segreto !== 'ALFA_99_OMEGA') {
 				// Mostra un messaggio e poi rimanda a Google Sites
-				document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+				//document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
+				alert('Accesso non autorizzato!');
 				console.log('rimando a google');
 				setTimeout(() => {
 				   window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
