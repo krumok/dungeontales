@@ -1,0 +1,13 @@
+<div style="max-width: 600px; margin: 40px auto; padding: 30px; background-color: #121212; border: 1px solid #c5a059; border-radius: 4px; text-align: center; color: #ffffff; font-family: 'Montserrat', sans-serif; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
+    
+    <h2 style="color: #c5a059; text-transform: uppercase; letter-spacing: 2px; font-size: 22px; margin-top: 0; margin-bottom: 20px; font-weight: 700;">
+        Generatore Digitale
+    </h2>
+    
+    <a href="https://krumok.github.io/dungeontales/generatore.html" 
+       target="_blank" 
+       style="display: inline-block; background-color: #c5a059; color: #000000; padding: 14px 32px; text-decoration: none; border-radius: 2px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(197, 160, 89, 0.3);">
+       ENTRA NEL DUNGEON
+    </a>
+
+</div>
