@@ -1,0 +1,5 @@
+siamo arrivati ad un ottimo punto.
+ci sono ancora alcuni dettagli da sistemare:
+1. il menu dovrebbe essere, cliccando su generatore subito queste voci: Ingressi, Stanze, Archivio, Istruzioni
+2. nel caso mobile, l'etichetta del dungeon copre parzialmente il titolo della pagina "Ingresso..."
+3. nel caso mobile, vorrei migliorare il layout della pagina archivio, non si capisce molto bene che si deve scorrere tra gli ambienti salvati, non saprei come cambiare, forse mettendo la barra di scrool più larga, cosa proponi?
