@@ -229,33 +229,7 @@
         }
 
     </style>
-	<script>
-	  (function() {
-		const sitoAutorizzato = "sites.google.com";
-		if (!document.referrer.includes(sitoAutorizzato)) {
-		  //window.location.href = "https://sites.google.com/view/generatore-dungeontales";
-		}
-	  })();
-	  
-		(function() {
-			const urlParams = new URLSearchParams(window.location.search);
-			const segreto = urlParams.get('access');
-			console.log(segreto);
-			// Se il segreto non corrisponde a quello impostato nel pulsante nativo
-			if (segreto !== 'ALFA_99_OMEGA') {
-				// Mostra un messaggio e poi rimanda a Google Sites
-				//document.body.innerHTML = "<h1>Accesso non autorizzato!</h1><p>Torna al portale ufficiale...</p>";
-				console.log('rimando a google');
-				setTimeout(() => {
-				  //  window.location.href = "https://sites.google.com/view/generatore-dungeontales/generatore";
-				}, 100);
-			} else {
-				// Accesso OK: Salva nella sessione per le altre pagine del dungeon
-				console.log('accesso ok');
-				sessionStorage.setItem('verified', 'true');
-			}
-		})();
-		
+	<script>		
 		window.onload = function() {
 			// sessionStorage dura solo finché la scheda è aperta
 			const sceltaEffettuataInQuestaSessione = sessionStorage.getItem('dungeon_scelta_fatta');
@@ -355,6 +329,14 @@
 		
 		
 		</script>	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-F2H5M43CF4"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'G-F2H5M43CF4');
+	</script>	
 </head>
 <body>
 	<div id="menu-container"></div>
