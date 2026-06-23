@@ -17,3 +17,12 @@ body {
 	flex-direction: column;
 	align-items: center;
 }
+
+@media (max-width: 900px) {
+	body {
+		background-size: 100% auto; /* L'immagine si adatta alla larghezza, l'altezza segue */
+		background-attachment: scroll; /* Importante per evitare bug su iOS */
+		background-color: #000; /* Il nero riempie dove la pergamena finisce */
+		background-repeat: repeat-y;
+	}
+}

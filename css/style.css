@@ -80,12 +80,12 @@ body {
 	display: inline-block;
 }
 
-  .didaimg{
+.didaimg{
     margin-bottom: 0.3em;
     font-size: 0.8rem;
     font-style: italic;
 	text-align: center;
-  }
+}
 
 /* Badge dei dadi */
 .tirid { 
@@ -147,6 +147,176 @@ body {
   justify-content: space-around;
 }
 
+/* Cornice Rossa Interna */
+.box-rosso {
+	background-image: url(../assets/cornice1.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 32px 10px 14px 10px;
+	display: inline-block;
+	width: 520px;
+	height: 90px;
+	max-width: 90%;
+}
+
+.box-rosso h2 {
+	margin: 0;
+	font-size: 1.6em;
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+.box-rosso p {
+	margin: 5px 0 0 0;
+	font-size: 1em;
+	color: #FFF;
+}
+
+.box-rosso1r {
+	background-image: url(../assets/cornice1.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 32px 10px 14px 10px;
+	display: inline-block;
+	width: 520px;
+	height: 60px;
+	max-width: 90%;
+}
+
+.box-rosso1r h2 {
+	margin: 0;
+	font-size: 1.6em;
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+.box-rosso1r p {
+	margin: 5px 0 0 0;
+	font-size: 1em;
+	color: #FFF;
+}
+
+.mart40 {
+	margin-top:40px;
+}
+
+.box-rosso1i {
+	background-image: url(../assets/cornice1.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 20px 10px 10px 10px;
+	display: inline-block;
+	width: 520px;
+	height: 50px;
+	max-width: 90%;
+}
+
+.box-rosso1i h2 {
+	margin: 0;
+	font-size: 1.6em;
+	color: #FFF;
+	text-transform: uppercase;
+}
+
+.box-rosso1i p {
+	margin: 5px 0 0 0;
+	font-size: 1em;
+	color: #FFF;
+}
+
+.banner-istruzioni {
+	background-color: #000;
+	width: 100%;
+	max-width: 1200px;
+	text-align: center;
+	padding: 4px 0;
+}
+
+.banner-titolo {
+	width: 100%;
+	max-width: 1200px;
+	text-align: center;
+	padding: 4px 0;
+}
+
+.cornice-box {
+	position: relative;
+	width: 220px;
+	height: 300px;
+	background-image: url('../assets/corniceb.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 18px; /* Spazio per far respirare la mappa */
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: transform 0.3s;
+}
+
+.cornice-boxs {
+	position: relative;
+	width: 230px;
+	height: 250px;
+	background-image: url('../assets/corniceb.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 14px; /* Spazio per far respirare la mappa */
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+	transition: transform 0.3s;
+}		
+
+.cornice-boxi {
+	position: relative;
+	width: 300px;
+	height: 300px;
+	background-image: url('../assets/corniceb.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	padding: 14px; /* Spazio per far respirare la mappa */
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-left: auto;
+	margin-right: auto;
+}		
+
+.cornice-boxt {
+	background-image: url('../assets/cornicet.png') !important;
+}		
+
+.cornice-boxb60 {
+	background-image: url('../assets/corniceb60.png') !important;
+}
+
+.cornice-boxb70 {
+	background-image: url('../assets/corniceb70.png') !important;
+}
+
+.cornice-boxb50 {
+	background-image: url('../assets/corniceb50.png') !important;
+}
+
+.cornice-box:hover {
+	transform: scale(1.05);
+}
+
+.mappa-img {
+	width: 100%;
+	height: 90%;
+	object-fit: contain; 
+	display: block;
+}
+
 /* Mobile Optimization */
 @media screen and (max-width: 600px) {
     body { font-size: 12pt; }
@@ -158,6 +328,13 @@ body {
 	.main-container {
 		margin: 0 10px;
 		min-width:auto;
-		padding-top: 40px !important;
+		padding-top: 0px !important;
 	}	
+	
+
+	.box-rosso {
+		min-width: 80%;
+	}
+	.box-rosso h2 { font-size: 1.2em; }
+	.box-rosso p { font-size: 0.8em; }
 }
