@@ -26,16 +26,20 @@ body {
 }
 
 .img-wrapper img {
-    height: auto;
+    /**height: auto;*/
 	min-width: 200px;
     width: auto;           
     max-width: 100%;       
     object-fit: contain;   
     background: white; 
-    border-radius: 8px; 
-    border: 2px solid #ccc;
+    /*border-radius: 8px; 
+    border: 2px solid #ccc;*/
     display: block;
-    margin: 0 auto;        /* Centra l'immagine nel contenitore */
+    margin: 10px;        /* Centra l'immagine nel contenitore */
+}
+
+.imgwn img {
+	background: none !important;
 }
 
 /* Tipografia e Blocchi */
@@ -199,7 +203,7 @@ body {
 }
 
 .mart40 {
-	margin-top:40px;
+	margin-top:1px;
 }
 
 .box-rosso1i {
@@ -276,8 +280,8 @@ body {
 
 .cornice-boxi {
 	position: relative;
-	width: 300px;
-	height: 300px;
+	width: 380px;
+	height: 360px;
 	background-image: url('../assets/corniceb.png');
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -317,6 +321,13 @@ body {
 	display: block;
 }
 
+.kofi-menu-container {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 9999; /* Lo tiene sopra gli altri elementi */
+}
+
 /* Mobile Optimization */
 @media screen and (max-width: 600px) {
     body { font-size: 12pt; }
@@ -337,4 +348,8 @@ body {
 	}
 	.box-rosso h2 { font-size: 1.2em; }
 	.box-rosso p { font-size: 0.8em; }
+
+	.mart40 {
+		margin-top:40px;
+	}	
 }

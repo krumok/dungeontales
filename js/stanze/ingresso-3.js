@@ -1,6 +1,6 @@
 const DATI_STANZA = {
     titolo: "INGRESSO: 3 (p.140)",
-    immagine: "assets/ingresso3.png",
+    immagine: "assets/ingresso-3t.png",
     
     descrizioni: [
         "Drappi di un regno caduto, sono appesi ai lati delle porta.",

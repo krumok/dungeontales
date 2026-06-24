@@ -1,6 +1,6 @@
 const DATI_STANZA = {
     titolo: "#1 INGRESSO: 6 (p.141)",
-    immagine: "assets/ingresso6.png",
+    immagine: "assets/ingresso-6t.png",
     
     // Le descrizioni e le note le lasciamo come funzioni o segnaposto
     // che verranno riempiti al momento del caricamento
