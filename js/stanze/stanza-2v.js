@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "STANZA 2V",
+    pagina: "p.145",
     immagini: {
         "1": "assets/21.png",
         "2": "assets/22.png",
@@ -14,6 +15,8 @@ const DATI_STANZA = {
         ["Un antico affresco raffigurante scene di battaglia", "Ossa rosicchiate sparse sul pavimento"],
         ["Udite una sorta di nenia in lontananza", "Notate delle frecce conficcate nel muro"]
     ],
+
+    // Illuminazione: 1-4 Nessuna, 5-6 Fievole
     illuminazione: [
         "Nessuna (visibilità 1.5m)", 
         "Nessuna (visibilità 1.5m)", 
@@ -24,20 +27,26 @@ const DATI_STANZA = {
     ],
     provenienzaLuce: ["da candele quasi spente", "da riverbero di altri ambienti limitrofi"],
     
-    // Novità Stanza 2
     obiettivi: ["SI", "NO", "NO", "NO", "NO", "NO"], // SI solo con 1
     uscite: ["SI", "NO", "NO", "NO", "NO", "NO"],    // SI solo con 1
     note: "E' possibile accamparsi in questo ambiente.",
 
+    // Forziere: 1-5 NO / 6 SI
+    sogliaForziere: 6,
+
 	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +1<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +D4<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
+
+    // Collegamenti: 1 Nessuno, 2-4 Porta, 5 Arco, 6 Portone. Aperta/o con 4-6 (chiusa/o con 1-3)
+    soglieCollegamenti: { nessuna: 1, porta: 4, arco: 5, portone: 6 },
+    sogliaPortaChiusa: 3,
     
     tipoTrappola: [
         "<b>Lingua di fuoco</b> (Danno: Fuoco, 1D8+2 PF ogni 3 LE del PG, prova PR Difficile 15+ per dimezzare)", 
-        "<b>Botola nel pavimento</b> (Danno: Impatto, 1D4 quadretti intorno, profonda 3mt, 1D6+2 PF ogni 3 LE del PG)"
+        "<b>Botola nel pavimento</b> (Danno: Impatto, 1D4 quadretti intorno, profonda 3mt, 2PA per uscire / corda e rampino 1PA, 1D6+2 PF ogni 3 LE del PG)"
     ],
-    statTrappola: "Per Disattivare Trappola prova di PR:<br>LEM 1-3 Complicata 10+<br>LEM 4-6 Difficile 15+<br>LEM 7-10 Difficilissima 20+",
+    statTrappola: "Per Disattivare o Riarmare Trappola prova di PR:<br>LEM 1-3 Complicata 10+<br>LEM 4-6 Difficile 15+<br>LEM 7-10 Difficilissima 20+",
 
     tabellaForziere: [
         "Trovi... niente, il forziere è vuoto!", 
@@ -46,14 +55,19 @@ const DATI_STANZA = {
         "Trovi un <b>Indizio</b> (Vedi p.165)"
     ],
 	
-	regolaIncontroSpeciale: true,  
+    // Incontro: 1-2 SI / 3-5 NESSUNO / 6 SPECIALE
+    soglieIncontro: { si: 2, speciale: 6 },
+
+    // Mobilio: 1-2 SI. Tipo con D6: 1-3 piccolo, 4-6 medio
 	sogliaMobilio: 2,              
 	tabellaMobilio: [
 		"ostacolo piccolo", "ostacolo piccolo", "ostacolo piccolo", 
 		"ostacolo medio", "ostacolo medio", "ostacolo medio"
 	],	
-	
-	testiScale: { su: "che salgono", giu: "che scendono" },
+
+    // Scale: 1 SI / 2-6 NO. Direzione D4. Livelli: 1D3
+    sogliaScale: 1,
+    livelliScale: { dado: 3, bonus: 0 },
 		
     incontri: {
         lem13: ["Creature umanoidi (p. 9)", "Creature infestanti (p. 9)", "Creature non-morte (p. 11)"],
@@ -61,12 +75,13 @@ const DATI_STANZA = {
         lem710: ["Creature umanoidi (p. 9)", "Creature mostruose (p. 10)", "Creature magiche (p. 10)", "Creature extraplanari (p. 10)", "Creature non-morte (p. 11)"]
     },
     
+    // Risorse: 1-2 Niente, 3 Funghi, 4-5 Legno (1D4 torce), 6 Vetri rotti
 	tabellaRisorse: [
 		"Trovate... niente", 
 		"Trovate... niente", 
 		"Trovate dei funghi commestibili (un mezz'uomo può ricavare 1D4+1 razioni di cibo p.26)", 
-		"Trovate dei pezzi di legno che si possono usare come 1d2 di torce (durata 1 ora)", 
-		"Trovate dei pezzi di legno che si possono usare come 1d2 di torce (durata 1 ora)", 
+		"Trovate dei pezzi di legno che si possono usare come 1d4 di torce (durata 1 ora)", 
+		"Trovate dei pezzi di legno che si possono usare come 1d4 di torce (durata 1 ora)", 
 		"Trovate dei vetri rotti che si possono usare come specchietto"
 	]
 };

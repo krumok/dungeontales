@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "STANZA 3V",
+    pagina: "p.146",
     immagini: {
         "1": "assets/31.png",
         "2": "assets/32.png",
@@ -54,8 +55,12 @@ const DATI_STANZA = {
         return notaBase;
     },
 
-    // Collegamenti Stanza 3: 1-2 Nessuna, 3-4 Porta, 5 Arco, 6 Portone
+    // Forziere: 1-4 NO / 5-6 SI
+    sogliaForziere: 5,
+
+    // Collegamenti: 1-2 Nessuna, 3-4 Porta, 5 Arco, 6 Portone. Aperta/o con 4-6 (chiusa/o con 1-3)
     soglieCollegamenti: { nessuna: 2, porta: 4, arco: 5, portone: 6 },
+    sogliaPortaChiusa: 3,
     
 	materialePorta: "legno",
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +2<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>4-6 PCN LEM +2<br>7-10 PCN LEM +4",
@@ -74,9 +79,12 @@ const DATI_STANZA = {
         "Trovi un <b>Indizio</b> (Vedi p.165)"
     ],
     
-	testiScale: { su: "che salgono", giu: "che scendono" },
+    // Scale: 1-2 SI / 3-6 NO. Direzione D4. Livelli: 1D4
+    sogliaScale: 2,
+    livelliScale: { dado: 4, bonus: 0 },
 	
-    regolaIncontroSpeciale: true,
+    // Incontro: 1-2 SI / 3-5 NESSUNO / 6 SPECIALE
+    soglieIncontro: { si: 2, speciale: 6 },
     incontri: {
         lem13: ["Creature umanoidi (p. 9)", "Creature mostruose (p. 10)", "Creature infestanti (p. 9)", "Creature non-morte (p. 11)"],
         lem46: ["Creature umanoidi (p. 9)", "Creature mostruose (p. 10)", "Creature magiche (p. 10)", "Creature extraplanari (p. 10)", "Creature non-morte (p. 11)"],

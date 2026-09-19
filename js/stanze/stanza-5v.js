@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "STANZA 5V",
+    pagina: "p.148",
     immagini: {
         "1": "assets/51.png",
         "2": "assets/52.png",
@@ -34,7 +35,7 @@ const DATI_STANZA = {
     obiettivi: ["SI", "NO", "NO", "NO", "NO", "NO"],
     uscite: ["SI", "NO", "NO", "NO", "NO", "NO"],
 
-    // Forziere: 5-6 SI
+    // Forziere: 1-4 NO / 5-6 SI
     sogliaForziere: 5,
     tabellaForziere: [
         "Trovi... niente, il forziere è vuoto!",
@@ -43,16 +44,20 @@ const DATI_STANZA = {
         "Trovi un <b>Indizio</b> (Vedi p.165)"
     ],
 	
-	testiScale: { su: "che salgono", giu: "che scendono" },
+    // Scale: 1-2 SI / 3-6 NO. Tipo D4, direzione D4, livelli 1D3+1 (2, 3 o 4)
+    sogliaScale: 2,
+    tipiScale: ["Scalinata larga 3mt (2 quadretti)", "Scalinata larga 3mt (2 quadretti)", "Scala di legno", "Scala di ferro"],
+    livelliScale: { dado: 3, bonus: 1 },
 
-    // Trappole
+    // Trappola: 1-4 Fiotto d'acido / 5-6 Teletrasporto
+    sogliaTipoTrappola: 4,
     tipoTrappola: [
         "<b>Fiotto d'acido</b> (Danno: Acido, 1D8+3 PF ogni 3 LE del PG, prova PR Difficile 15+ per dimezzare i danni. Corazze di Pelle, Protezioni di Pelle e Scudi di Legno perdono 1D2 DA cad)",
         "<b>Teletrasporto</b> (Il PG e tutte le creature entro 6mt sono teletrasportate all’Ingresso del Dungeon)"
     ],
     statTrappola: "Per Disattivare prova di PR:<br>LEM 1-3 Complicata 10+<br>LEM 4-6 Difficile 15+<br>LEM 7-10 Difficilissima 20+.<br>Per Riarmare: stessa prova ma con Svantaggio.",
 
-    // Incontri (Aumentati a 1-3 SI, 6 Speciale)
+    // Incontro: 1-3 SI / 4-5 NESSUNO / 6 SPECIALE
     soglieIncontro: { si: 3, speciale: 6 },
     incontri: {
         lem13: ["Creature umanoidi (p. 9)", "Creature magiche (p. 10)", "Creature mostruose (p. 10)", "Creature infestanti (p. 9)", "Creature non-morte (p. 11)"],
@@ -60,12 +65,15 @@ const DATI_STANZA = {
         lem710: ["Creature umanoidi (p. 9)", "Creature mostruose (p. 10)", "Creature magiche (p. 10)", "Creature non-morte (p. 11)", "Draghi (p. 11)", "Creature extraplanari (p. 10)"]
     },
 
-    // Collegamenti: Porta metallo invece di legno
+    // Collegamenti: 1 Nessuno, 2-4 Porta di metallo, 5 Arco, 6 Portone. Aperta/o con 4-6 (chiusa/o con 1-3)
     materialePorta: "metallo",
+    soglieCollegamenti: { nessuna: 1, porta: 4, arco: 5, portone: 6 },
+    sogliaPortaChiusa: 3,
     testoAperturaPorta: "Per Sfondare prova di VR PCN LEM +1 con Svantaggio.<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>4-6 PCN LEM +2<br>7-10 PCN LEM +4",
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +2.<br>Per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +4",
 
-    // Mobilio
+    // Mobilio: 1-5 SI. Tipo con D6: 1-3 piccolo, 4-5 medio, 6 grande
+    sogliaMobilio: 5,
     tabellaMobilio: ["ostacolo piccolo", "ostacolo piccolo", "ostacolo piccolo", "ostacolo medio", "ostacolo medio", "ostacolo grande"],
 
     // Risorse
