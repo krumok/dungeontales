@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "INGRESSO: 5 (p.141)",
+    pagina: "p.141",
     immagine: "assets/ingresso-5t.png",
     
     descrizioni: [
@@ -10,10 +11,10 @@ const DATI_STANZA = {
     ],
     
     illuminazione: "Luce nessuna (visibilità 1,5m).",
-    note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",
+    note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     
-    // Scale dinamiche
-    scale: ["scale che salgono", "scale che scendono"],
+    // Scale: direzione con D4 (1-2 scendono, 3-4 salgono), livelli con D4
+    scale: ["Scendono", "Scendono", "Salgono", "Salgono"],
     livelliScale: ["1 livello (LVP 0)", "2 livelli (LVP 2)", "3 livelli (LVP 3)", "4 livelli (LVP 4)"],
     
     // Collegamenti (Porte)
@@ -34,9 +35,9 @@ const DATI_STANZA = {
 
     tabellaRisorse: [
         "Trovate... niente",
-        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
-        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
-        "Trovate degli stracci polverosi si posso usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si possono usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si possono usare per fare un sacco a tracolla",
+        "Trovate degli stracci polverosi si possono usare per fare un sacco a tracolla",
         "Trovate dei funghi e piante commestibili (1d2 di razioni, x2 se c'è un mezz'uomo)",
         "Trovate dei funghi e piante commestibili (1d2 di razioni, x2 se c'è un mezz'uomo)"
     ]

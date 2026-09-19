@@ -3,45 +3,25 @@ const DATI_STANZA = {
     pagina: "p.139",
     immagine: "assets/ingresso-1t.png", 
     
-    // Cambiato da 'descrizione' a 'descrizioni'
-    //descrizioni: [
-    //    "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
-    //    "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
-    //    "Un tintinnio di catene eccheggia in lontananza. Brividi gelidi vi assalgono.",
-    //    "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti."
-    //],
-    // Ogni descrizione ora ha il suo testo e la sua immagine di dettaglio/atmosfera
     descrizioni: [
-        {
-            testo: "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
-            effettoVisivo: "assets/effetti/sporco.png"
-        },
-        {
-            testo: "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
-            effettoVisivo: "assets/effetti/muffa.png"
-        },
-        {
-            testo: "Un tintinnio di catene eccheggia in lontananza. Brividi gelidi vi assalgono.",
-            effettoVisivo: "assets/effetti/catene.png"
-        },
-        {
-            testo: "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti.",
-            effettoVisivo: "assets/effetti/sangue.png" 
-        }
-    ],	
+        "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
+        "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
+        "Un tintinnio di catene echeggia in lontananza. Brividi gelidi vi assalgono.",
+        "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti."
+    ],
     
     illuminazione: "Luce fievole (visibilità 6m), proveniente dalle scale",
-    note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",
+    note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     
-    // Dati per i cancelli (Sezione #5)
+    // Dati per i cancelli (Sezione #5): oltre il cancello c'è un oggetto con D6 = 6
     statoCancello: ["CHIUSO", "CHIUSO", "APERTO", "APERTO", "APERTO", "APERTO"],
     risorsaSX: true, 
     risorsaDX: true,
     tabellaSpadaLanterna: ["una Spada corta", "una Lanterna"],
     tabellaScudoRazione: ["uno Scudo di legno", "una Razione di cibo conservato"],
     
-    // Dati per le scale (Sezione #4) - Assicurati che siano array
-    scale: ["Scale che salgono", "Scale che scendono"],
+    // Scale (Sezione #4): direzione con D4 (1-2 scendono, 3-4 salgono), livelli con D4
+    scale: ["Scendono", "Scendono", "Salgono", "Salgono"],
     livelliScale: ["1 livello (LVP 0)", "2 livelli (LVP 2)", "3 livelli (LVP 3)", "4 livelli (LVP 4)"],
 	
     collegamenti: [
@@ -55,7 +35,7 @@ const DATI_STANZA = {
             dado: 6
         },
         {
-            nome: "Il cancello a sinistra",
+            nome: "Il cancello a destra",
             probabilita: ["CHIUSO", "CHIUSO", "APERTO", "APERTO", "APERTO", "APERTO"],
             dado: 6
         }

@@ -2,18 +2,19 @@
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Test motore stanze</title>
+    <title>Test motore stanze e ingressi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex">
 
     <style>
         body { font-family: Arial, sans-serif; background: #f4f0e0; color: #222; margin: 0; padding: 16px; }
         h1 { font-size: 1.3rem; margin: 0 0 8px 0; }
+        h1.parte { margin-top: 30px; padding-top: 10px; border-top: 3px double #5d4037; }
         h2 { font-size: 1.05rem; margin: 22px 0 6px 0; }
         p.nota { font-size: 0.85rem; max-width: 800px; }
         .barra { margin: 12px 0; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
         button { padding: 8px 16px; font-size: 0.95rem; cursor: pointer; }
-        table { border-collapse: collapse; width: 100%; max-width: 720px; background: #fff; font-size: 0.85rem; }
+        table { border-collapse: collapse; width: 100%; max-width: 760px; background: #fff; font-size: 0.85rem; }
         th, td { border: 1px solid #ccc; padding: 4px 8px; text-align: left; }
         th { background: #e4dcb7; }
         td.num { text-align: right; white-space: nowrap; }
@@ -24,21 +25,24 @@
         .errore { color: #b71c1c; font-weight: bold; }
     </style>
 
-    <!-- Il motore vero delle stanze: qui si usano le sue funzioni, senza toccare la pagina -->
+    <!-- Il motore vero delle stanze: qui si usano le sue funzioni, senza toccare la pagina.
+         Il motore degli ingressi (js/dungeon-core.js) viene letto a parte, perché usa gli stessi nomi. -->
     <script src="js/dungeon-rooms.js"></script>
 </head>
 <body>
     <h1>Test del motore: percentuali attese (dai PDF) e ottenute</h1>
     <p class="nota">
-        Per ogni stanza il test lancia molte generazioni con le funzioni reali del motore e i dati reali di
-        <code>js/stanze/stanza-NV.js</code>, poi confronta le percentuali ottenute con quelle dei PDF.
+        Per ogni stanza e ogni ingresso il test lancia molte generazioni con le funzioni reali del motore e i dati reali di
+        <code>js/stanze/</code>, poi confronta le percentuali ottenute con quelle dei PDF.
         Una riga è segnata in rosso se la differenza supera 3 punti percentuali (con tante generazioni, uno scarto
         così grande indica quasi sempre una regola sbagliata, non il caso).
+        Ingresso 6: le porte seguono la scelta di progetto (sinistra sempre aperta, destra aperta con 4-6, davanti con 6),
+        non la numerazione del PDF.
         La pagina deve essere aperta da un sito (GitHub Pages o un server locale), non con doppio clic sul file.
     </p>
 
     <div class="barra">
-        <label>Generazioni per stanza:
+        <label>Generazioni per stanza/ingresso:
             <select id="quante">
                 <option value="2000">2.000</option>
                 <option value="6000" selected>6.000</option>
@@ -53,12 +57,14 @@
 
     <script>
         const CODICI = ["1v", "2v", "3v", "4v", "5v", "6v"];
+        const INGRESSI = [1, 2, 3, 4, 5, 6, 7, 8];
         const TOLLERANZA = 3; // punti percentuali
 
         // --- Valori attesi, ricavati dai PDF (in %) ---
         const P = (n) => n / 6 * 100;                                         // n facce su 6
         const uniforme = (min, quanti) => ({ min: min, perc: Array(quanti).fill(100 / quanti) });
 
+        // ===== STANZE =====
         // forz = forziere SI | coll = [nessuna, porta, arco, portone] per parete | aperte = % porte/portoni aperti
         // seg = passaggi segreti | scale = scale SI | liv = livelli | tipi = tipo scale (in ordine di tabella)
         // incSi / incSp = incontro SI / SPECIALE | trap = [SI, SCATTATA, NO] | tipo1 = primo tipo di trappola
@@ -86,9 +92,42 @@
                     luce: { nessuna: P(2), fievole: P(4) } }
         };
 
-        // --- Misure ---
+        // ===== INGRESSI =====
+        // scale = { dir: [% per ogni voce di direzione], liv: [% per ogni voce di livelli] } (solo se hanno le scale)
+        // porte = % di APERTA per ogni collegamento, nell'ordine dei dati | trap = % trappola presente
+        // canc = % di oggetto oltre ciascun cancello | luce = parole che la luce deve contenere per ogni descrizione
+        const ATTESI_ING = {
+            "1": { scale: { dir: [50, 50], liv: [25, 25, 25, 25] }, porte: [100, P(4), P(4)], trap: 0, canc: P(1) },
+            "2": { porte: [P(4)], trap: 0 },
+            "3": { porte: [P(3), P(2), 100], trap: 0 },
+            "4": { scale: { dir: [50, 50], liv: [25, 25, 25, 25] }, porte: [P(2), P(4)], trap: P(1) },
+            "5": { scale: { dir: [50, 50], liv: [25, 25, 25, 25] }, porte: [100, P(4)], trap: 0 },
+            "6": { porte: [100, P(3), P(1)], trap: 0, luce: ["casse", "statua", "colonna", "teschi"] },
+            "7": { porte: [0, 100], trap: 0 },
+            "8": { scale: { dir: [75, 25], liv: [50, 50] }, porte: [P(2), P(2)], trap: P(3) }
+        };
+
+        // --- Utilità ---
         function conta(testo, re) { return (testo.match(re) || []).length; }
         function incr(oggetto, chiave) { oggetto[chiave] = (oggetto[chiave] || 0) + 1; }
+        const pc = (n, tot) => tot ? n / tot * 100 : 0;
+        function righeConfronto() {
+            const righe = [];
+            righe.aggiungi = (voce, atteso, ottenuto) => righe.push({
+                voce: voce, atteso: atteso, ottenuto: ottenuto, ok: Math.abs(atteso - ottenuto) <= TOLLERANZA
+            });
+            return righe;
+        }
+        // Legge un file come testo (con parametro anti-cache) e toglie l'avvio automatico "window.onload = ..." finale
+        async function leggiTesto(percorso, togliOnload) {
+            const risposta = await fetch(percorso + "?t=" + Date.now());
+            if (!risposta.ok) throw new Error("File non trovato: " + percorso);
+            let testo = await risposta.text();
+            if (togliOnload) testo = testo.replace(/window\.onload\s*=[\s\S]*$/, "");
+            return testo;
+        }
+
+        // ================= STANZE =================
 
         // Lancia N generazioni con le funzioni del motore e conta i risultati
         function misura(d, N) {
@@ -163,77 +202,172 @@
 
         // Confronta le misure con i valori attesi: restituisce le righe della tabella
         function confronta(d, c, a) {
-            const righe = [];
-            const pc = (n, tot) => tot ? n / tot * 100 : 0;
-            const aggiungi = (voce, atteso, ottenuto) => righe.push({
-                voce: voce, atteso: atteso, ottenuto: ottenuto, ok: Math.abs(atteso - ottenuto) <= TOLLERANZA
-            });
+            const righe = righeConfronto();
 
-            aggiungi("Forziere: SI", a.forz, pc(c.forz, c.N));
+            righe.aggiungi("Forziere: SI", a.forz, pc(c.forz, c.N));
 
             // Illuminazione
             const tipiLuce = Object.keys(Object.assign({}, a.luce, c.luce));
-            tipiLuce.forEach(k => aggiungi("Illuminazione: " + k, a.luce[k] || 0, pc(c.luce[k] || 0, c.N)));
-            aggiungi("Illuminazione: provenienza indicata (se c'è luce)", 100, pc(c.luceConProv, c.lucePresente));
+            tipiLuce.forEach(k => righe.aggiungi("Illuminazione: " + k, a.luce[k] || 0, pc(c.luce[k] || 0, c.N)));
+            righe.aggiungi("Illuminazione: provenienza indicata (se c'è luce)", 100, pc(c.luceConProv, c.lucePresente));
 
             // Collegamenti (per parete: 3 pareti per generazione)
             const pareti = c.N * 3;
-            aggiungi("Collegamenti: nessuna porta", a.coll[0], pc(c.nessuna, pareti));
-            aggiungi("Collegamenti: porta", a.coll[1], pc(c.porta, pareti));
-            aggiungi("Collegamenti: arco", a.coll[2], pc(c.arco, pareti));
-            aggiungi("Collegamenti: portone", a.coll[3], pc(c.portone, pareti));
-            aggiungi("Porte e portoni APERTI", a.aperte, pc(c.aperte, c.aperte + c.chiuse));
-            aggiungi("Passaggi segreti: presenti", a.seg, pc(c.seg, c.N));
+            righe.aggiungi("Collegamenti: nessuna porta", a.coll[0], pc(c.nessuna, pareti));
+            righe.aggiungi("Collegamenti: porta", a.coll[1], pc(c.porta, pareti));
+            righe.aggiungi("Collegamenti: arco", a.coll[2], pc(c.arco, pareti));
+            righe.aggiungi("Collegamenti: portone", a.coll[3], pc(c.portone, pareti));
+            righe.aggiungi("Porte e portoni APERTI", a.aperte, pc(c.aperte, c.aperte + c.chiuse));
+            righe.aggiungi("Passaggi segreti: presenti", a.seg, pc(c.seg, c.N));
 
             // Scale
-            aggiungi("Scale: SI", a.scale, pc(c.scaleSi, c.N));
+            righe.aggiungi("Scale: SI", a.scale, pc(c.scaleSi, c.N));
             let dentro = 0;
             a.liv.perc.forEach((atteso, i) => {
                 const livello = a.liv.min + i;
                 const n = c.liv[String(livello)] || 0;
                 dentro += n;
-                aggiungi("Scale: " + livello + " livelli (LVP " + livello + ")", atteso, pc(n, c.scaleSi));
+                righe.aggiungi("Scale: " + livello + " livelli (LVP " + livello + ")", atteso, pc(n, c.scaleSi));
             });
-            aggiungi("Scale: livelli fuori intervallo", 0, pc(c.scaleSi - dentro, c.scaleSi));
-            aggiungi("Scale: direzione Scendono", 50, pc(c.dir["Scendono"] || 0, c.scaleSi));
-            aggiungi("Scale: direzione Salgono", 50, pc(c.dir["Salgono"] || 0, c.scaleSi));
+            righe.aggiungi("Scale: livelli fuori intervallo", 0, pc(c.scaleSi - dentro, c.scaleSi));
+            righe.aggiungi("Scale: direzione Scendono", 50, pc(c.dir["Scendono"] || 0, c.scaleSi));
+            righe.aggiungi("Scale: direzione Salgono", 50, pc(c.dir["Salgono"] || 0, c.scaleSi));
             if (d.tipiScale) {
                 const etichette = [];
                 d.tipiScale.forEach(t => { if (!etichette.includes(t)) etichette.push(t); });
                 etichette.forEach((et, i) => {
                     const atteso = a.tipi ? (a.tipi[i] || 0) : 0;
-                    aggiungi("Scale: tipo \"" + et + "\"", atteso, pc(c.tipi[et] || 0, c.scaleSi));
+                    righe.aggiungi("Scale: tipo \"" + et + "\"", atteso, pc(c.tipi[et] || 0, c.scaleSi));
                 });
             } else if (Object.keys(c.tipi).length) {
-                aggiungi("Scale: tipo indicato (non previsto)", 0, 100);
+                righe.aggiungi("Scale: tipo indicato (non previsto)", 0, 100);
             }
 
             // Incontro
-            aggiungi("Incontro: SI", a.incSi, pc(c.incSi, c.N));
-            aggiungi("Incontro: SPECIALE", a.incSp, pc(c.incSp, c.N));
+            righe.aggiungi("Incontro: SI", a.incSi, pc(c.incSi, c.N));
+            righe.aggiungi("Incontro: SPECIALE", a.incSp, pc(c.incSp, c.N));
 
             // Trappola
-            aggiungi("Trappola: SI (non scattata)", a.trap[0], pc(c.trapSi, c.N));
-            aggiungi("Trappola: SI e già SCATTATA", a.trap[1], pc(c.trapScat, c.N));
-            aggiungi("Trappola: NO", a.trap[2], pc(c.trapNo, c.N));
-            aggiungi("Trappola: primo tipo (tra quelle presenti)", a.tipo1, pc(c.trapTipo1, c.trapSi + c.trapScat));
+            righe.aggiungi("Trappola: SI (non scattata)", a.trap[0], pc(c.trapSi, c.N));
+            righe.aggiungi("Trappola: SI e già SCATTATA", a.trap[1], pc(c.trapScat, c.N));
+            righe.aggiungi("Trappola: NO", a.trap[2], pc(c.trapNo, c.N));
+            righe.aggiungi("Trappola: primo tipo (tra quelle presenti)", a.tipo1, pc(c.trapTipo1, c.trapSi + c.trapScat));
 
             // Mobilio
-            aggiungi("Mobilio: PRESENTE", a.mob, pc(c.mob, c.N));
+            righe.aggiungi("Mobilio: PRESENTE", a.mob, pc(c.mob, c.N));
 
             return righe;
         }
 
-        // --- Caricamento dati stanza (legge il file js come testo, senza eseguire l'avvio della pagina) ---
         async function caricaStanza(codice) {
-            const risposta = await fetch("js/stanze/stanza-" + codice + ".js?t=" + Date.now());
-            if (!risposta.ok) throw new Error("File non trovato: js/stanze/stanza-" + codice + ".js");
-            let testo = await risposta.text();
-            testo = testo.replace(/window\.onload\s*=[^\n]*/g, ""); // niente avvio automatico
+            const testo = await leggiTesto("js/stanze/stanza-" + codice + ".js", true);
             return new Function(testo + "\n;return DATI_STANZA;")();
         }
 
-        // --- Visualizzazione ---
+        // ================= INGRESSI =================
+
+        // Il motore degli ingressi ha gli stessi nomi di quello delle stanze (roll, getTirid...):
+        // lo eseguo in un ambiente separato e ne prendo solo le funzioni che servono.
+        async function caricaMotoreIngressi() {
+            const testo = await leggiTesto("js/dungeon-core.js", false);
+            return new Function(testo + "\n;return { calcolaTrappolaIngresso, calcolaScaleIngresso, calcolaCollegamentiIngresso, " +
+                                "calcolaCancelliIngresso, calcolaIlluminazioneIngresso };")();
+        }
+
+        async function caricaIngresso(n) {
+            const testo = await leggiTesto("js/stanze/ingresso-" + n + ".js", true);
+            return new Function(testo + "\n;return DATI_STANZA;")();
+        }
+
+        function misuraIngresso(m, d, N) {
+            const nPorte = d.collegamenti ? d.collegamenti.length : (d.tabellaPorta ? 1 : 0);
+            const c = {
+                N: N, nPorte: nPorte,
+                dir: {}, liv: {}, scaleConDadi: 0,
+                porteAperte: Array(nPorte).fill(0), porteTot: Array(nPorte).fill(0),
+                trapSi: 0, cancSX: 0, cancDX: 0, cancSXprimo: 0, cancDXprimo: 0
+            };
+
+            for (let i = 0; i < N; i++) {
+                // Scale (solo gli ingressi con le liste hanno direzione e livelli)
+                const sc = m.calcolaScaleIngresso(d);
+                if (sc.startsWith("Direzione:")) {
+                    c.scaleConDadi++;
+                    const md = sc.match(/Direzione: (\S+)/);
+                    if (md) incr(c.dir, md[1]);
+                    const ml = sc.match(/Livelli: (.+?) <span/);
+                    if (ml) incr(c.liv, ml[1]);
+                }
+
+                // Collegamenti: stato di ogni porta, nell'ordine dei dati
+                const col = m.calcolaCollegamentiIngresso(d);
+                const stati = [...col.matchAll(/<b>(apert[ao]|chius[ao])<\/b>/gi)].map(x => x[1].toLowerCase());
+                for (let k = 0; k < nPorte; k++) {
+                    if (stati[k] === undefined) continue;
+                    c.porteTot[k]++;
+                    if (stati[k].startsWith("apert")) c.porteAperte[k]++;
+                }
+
+                // Trappola
+                if (m.calcolaTrappolaIngresso(d).presente) c.trapSi++;
+
+                // Cancelli con oggetto (Ingresso 1)
+                const cn = m.calcolaCancelliIngresso(d);
+                if (cn) {
+                    if (/a sinistra c'è/.test(cn)) { c.cancSX++; if (cn.includes("a sinistra c'è " + d.tabellaSpadaLanterna[0])) c.cancSXprimo++; }
+                    if (/a destra c'è/.test(cn))   { c.cancDX++; if (cn.includes("a destra c'è " + d.tabellaScudoRazione[0])) c.cancDXprimo++; }
+                }
+            }
+            return c;
+        }
+
+        function confrontaIngresso(m, d, c, a) {
+            const righe = righeConfronto();
+            const nome = (p) => (p.nome || "porta").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+
+            // Scale
+            if (a.scale) {
+                const dirEt = [];
+                d.scale.forEach(t => { if (!dirEt.includes(t)) dirEt.push(t); });
+                dirEt.forEach((et, i) => righe.aggiungi("Scale: direzione " + et, a.scale.dir[i], pc(c.dir[et] || 0, c.scaleConDadi)));
+                d.livelliScale.forEach((et, i) => righe.aggiungi("Scale: " + et, a.scale.liv[i], pc(c.liv[et] || 0, c.scaleConDadi)));
+            } else {
+                righe.aggiungi("Scale: nessun tiro di direzione/livelli (solo ingresso o assenti)", 0, pc(c.scaleConDadi, c.N));
+            }
+
+            // Collegamenti
+            if (a.porte.length !== c.nPorte) {
+                righe.aggiungi("Collegamenti: numero di porte (" + c.nPorte + " nei dati, " + a.porte.length + " attese)", 0, 100);
+            }
+            a.porte.forEach((atteso, k) => {
+                const et = d.collegamenti ? nome(d.collegamenti[k] || {}) : "Porta di legno davanti";
+                righe.aggiungi("Collegamento " + (k + 1) + " (" + et + "): APERTO", atteso, pc(c.porteAperte[k], c.porteTot[k]));
+            });
+
+            // Trappola
+            righe.aggiungi("Trappola: presente", a.trap, pc(c.trapSi, c.N));
+
+            // Cancelli con oggetto (Ingresso 1)
+            if (a.canc !== undefined) {
+                righe.aggiungi("Oltre il cancello a sinistra: oggetto presente", a.canc, pc(c.cancSX, c.N));
+                righe.aggiungi("Oltre il cancello a destra: oggetto presente", a.canc, pc(c.cancDX, c.N));
+                righe.aggiungi("Cancello a sinistra: \"" + d.tabellaSpadaLanterna[0] + "\" (tra gli oggetti)", 50, pc(c.cancSXprimo, c.cancSX));
+                righe.aggiungi("Cancello a destra: \"" + d.tabellaScudoRazione[0] + "\" (tra gli oggetti)", 50, pc(c.cancDXprimo, c.cancDX));
+            }
+
+            // Illuminazione legata alla descrizione (Ingresso 6)
+            if (a.luce) {
+                let ok = 0;
+                a.luce.forEach((parola, i) => {
+                    if (m.calcolaIlluminazioneIngresso(d, i, false).toLowerCase().includes(parola)) ok++;
+                });
+                righe.aggiungi("Luce coerente con la descrizione (" + a.luce.join(", ") + ")", 100, pc(ok, a.luce.length));
+            }
+
+            return righe;
+        }
+
+        // ================= VISUALIZZAZIONE =================
         function tabellaHtml(righe) {
             const f = (x) => x.toFixed(1).replace(".", ",") + "%";
             let h = "<table><tr><th>Voce</th><th>Atteso</th><th>Ottenuto</th><th>Esito</th></tr>";
@@ -244,31 +378,61 @@
             return h + "</table>";
         }
 
+        function bloccoHtml(titolo, righe) {
+            const ko = righe.filter(r => !r.ok).length;
+            return `<h2>${titolo}</h2><div>${ko === 0 ? "Tutte le voci sono in linea con il PDF." : ko + " voce/i con differenza."}</div>` + tabellaHtml(righe);
+        }
+
         async function avviaTest() {
             const N = parseInt(document.getElementById("quante").value, 10);
             const box = document.getElementById("risultati");
             const riepilogo = document.getElementById("riepilogo");
             box.innerHTML = "";
             riepilogo.textContent = "Test in corso...";
-
             let totaleKo = 0;
+            const pausa = () => new Promise(r => setTimeout(r, 0)); // lascia aggiornare la pagina
+
+            // --- Stanze ---
+            box.insertAdjacentHTML("beforeend", '<h1 class="parte">Stanze</h1>');
             for (const codice of CODICI) {
-                let html = `<h2>Stanza ${codice.toUpperCase()}</h2>`;
                 try {
                     const d = await caricaStanza(codice);
                     const righe = confronta(d, misura(d, N), ATTESI[codice]);
-                    const ko = righe.filter(r => !r.ok).length;
-                    totaleKo += ko;
-                    html += `<div>${ko === 0 ? "Tutte le voci sono in linea con il PDF." : ko + " voce/i con differenza."}</div>` + tabellaHtml(righe);
+                    totaleKo += righe.filter(r => !r.ok).length;
+                    box.insertAdjacentHTML("beforeend", bloccoHtml("Stanza " + codice.toUpperCase(), righe));
                 } catch (e) {
                     totaleKo++;
-                    html += `<div class="errore">Errore: ${e.message}</div>`;
+                    box.insertAdjacentHTML("beforeend", `<h2>Stanza ${codice.toUpperCase()}</h2><div class="errore">Errore: ${e.message}</div>`);
                 }
-                box.insertAdjacentHTML("beforeend", html);
-                await new Promise(r => setTimeout(r, 0)); // lascia aggiornare la pagina
+                await pausa();
             }
+
+            // --- Ingressi ---
+            box.insertAdjacentHTML("beforeend", '<h1 class="parte">Ingressi</h1>');
+            let motore = null;
+            try {
+                motore = await caricaMotoreIngressi();
+            } catch (e) {
+                totaleKo++;
+                box.insertAdjacentHTML("beforeend", `<div class="errore">Errore nel motore degli ingressi: ${e.message}</div>`);
+            }
+            if (motore) {
+                for (const n of INGRESSI) {
+                    try {
+                        const d = await caricaIngresso(n);
+                        const righe = confrontaIngresso(motore, d, misuraIngresso(motore, d, N), ATTESI_ING[String(n)]);
+                        totaleKo += righe.filter(r => !r.ok).length;
+                        box.insertAdjacentHTML("beforeend", bloccoHtml("Ingresso " + n, righe));
+                    } catch (e) {
+                        totaleKo++;
+                        box.insertAdjacentHTML("beforeend", `<h2>Ingresso ${n}</h2><div class="errore">Errore: ${e.message}</div>`);
+                    }
+                    await pausa();
+                }
+            }
+
             riepilogo.textContent = totaleKo === 0
-                ? "Esito: tutte le stanze sono in linea con i PDF (" + N + " generazioni per stanza)."
+                ? "Esito: tutte le stanze e gli ingressi sono in linea con i PDF (" + N + " generazioni ciascuno)."
                 : "Esito: " + totaleKo + " voce/i da controllare (righe in rosso).";
         }
 

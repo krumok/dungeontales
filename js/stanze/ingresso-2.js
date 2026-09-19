@@ -12,11 +12,11 @@ const DATI_STANZA = {
     
     illuminazione: "Luce normale (visibilità 9m), proveniente dalle scale",
     
-    note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",
+    note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     
     scale: "Solo quelle di ingresso",
     
-    // Logica della porta
+    // Logica della porta: aperta con D6 3-6
     tabellaPorta: [
         { stato: "CHIUSA", conApertura: true }, // D6 = 1
         { stato: "CHIUSA", conApertura: true }, // D6 = 2

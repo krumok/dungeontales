@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "#1 INGRESSO: 6 (p.141)",
+    pagina: "p.141",
     immagine: "assets/ingresso-6t.png",
     
     // Le descrizioni e le note le lasciamo come funzioni o segnaposto
@@ -11,9 +12,19 @@ const DATI_STANZA = {
         "La cera di candele consumate ricopre una mezza dozzina di teschi umani al centro della stanza."
     ],
     
+    // Questo ingresso non ha la sezione SCALE: Collegamenti è la sezione #4
+    senzaScale: true,
+
+    // Luce fievole (6m): le candele sono alla base dell'oggetto della descrizione uscita
+    // (stesso ordine di "descrizioni": casse, statua, colonna, teschi)
     illuminazione: "Luce fievole (6m) proveniente da candele poste al centro della stanza.",
-    note: "Arrivate dalla porta a {direzione}.<br>E' possibile accamparsi qui per recuperare PA, PP e Stress.",
-    scale: "Solo quelle di ingresso",
+    illuminazionePerDescrizione: [
+        "Luce fievole (6m) proveniente da candele poste alla base delle casse.",
+        "Luce fievole (6m) proveniente da candele poste alla base della statua.",
+        "Luce fievole (6m) proveniente da candele poste alla base della colonna.",
+        "Luce fievole (6m) proveniente da candele poste alla base dei teschi."
+    ],
+    note: "Arrivate dalla porta a {direzione}.<br>E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     
     collegamenti: [
         { nome: "Le porte sono tutte di ferro.<br>La porta a sinistra", statoFisso: "aperta" },

@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "INGRESSO: 4 (p.140)",
+    pagina: "p.140",
     immagine: "assets/ingresso-4t.png",
     
     descrizioni: [
@@ -10,10 +11,10 @@ const DATI_STANZA = {
     ],
     
     illuminazione: "Luce ottimale (visibilità 12m), proveniente dalle scale",
-    note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",
+    note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     
-    // Scale dinamiche (verranno calcolate dal motore perché array)
-    scale: ["scale che salgono", "scale che scendono"],
+    // Scale: direzione con D4 (1-2 scendono, 3-4 salgono), livelli con D4
+    scale: ["Scendono", "Scendono", "Salgono", "Salgono"],
     livelliScale: ["1 livello (LVP 0)", "2 livelli (LVP 1)", "3 livelli (LVP 2)", "4 livelli (LVP 3)"],
     
     // Collegamenti (Porte)
@@ -32,6 +33,7 @@ const DATI_STANZA = {
     testoApertura: "Per Sfondare prova di VR, per Scassinare prova di PR:<br>LEM 1-3 PCN LEM +1<br>LEM 4-6 PCN LEM +2<br>LEM 7-10 PCN LEM +3",
 
     // Logica Trappola
+    // (Le prove per disattivare sono quelle crescenti con il LEM: il PDF riporta per errore l'ordine inverso)
     datiTrappola: {
         probabilita: ["PRESENTE", "ASSENTE", "ASSENTE", "ASSENTE", "ASSENTE", "ASSENTE"], // PRESENTE solo con 1
         dado: 6,

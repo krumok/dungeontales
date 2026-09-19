@@ -1,5 +1,6 @@
 const DATI_STANZA = {
     titolo: "#1 INGRESSO: 8 (p.142)",
+    pagina: "p.142",
     immagine: "assets/ingresso-8t.png",
     
     descrizioni: [
@@ -12,12 +13,12 @@ const DATI_STANZA = {
 	illuminazione: "Luce scarsa (visibilità 3m) proveniente dalle scale.",
     illuminazioneTrappola: "L'illuminazione si riduce a nessuna (visibilità 1,5m).", // Appare solo se la trappola è PRESENTE
     
-    note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",
+    note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     notaTrappola: "Il passaggio usato per entrare nel dungeon è inutilizzabile.", // Appare solo se la trappola è PRESENTE
     
-    // Scale personalizzate per Ingresso 8
-    scale: ["scale che scendono", "scale che scendono", "scale che scendono", "scale che salgono"], // 1-3 scendono, 4 sale
-    livelliScale: ["1 livello (LVP 1)", "2 livelli (LVP 3)"], // Userà roll(2)
+    // Scale: direzione con D4 (1-3 scendono, 4 sale), livelli con D2
+    scale: ["Scendono", "Scendono", "Scendono", "Salgono"],
+    livelliScale: ["1 livello (LVP 1)", "2 livelli (LVP 3)"],
     
     // Collegamenti (Porte di pietra)
     collegamenti: [
@@ -42,13 +43,14 @@ const DATI_STANZA = {
         dettaglio: `<b>"L'uscita si blocca"</b><br><br>Per Disattivare Trappola prova di PR:<br>LEM 1-3 Normale 5+<br>LEM 4-6 Complicata 10+<br>LEM 7-10 Difficile 15+`
     },
 
+    // Risorse: 1 Niente, 2 Pugnale arrugginito, 3-6 Pezzi di legno (1D4 torce)
     tabellaRisorse: [
         "Trovate... niente",
         "Trovate un pugnale arrugginito (Vedi Pugnale -2 ai danni)",
-		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
-		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
-		"Trovate dei pezzi di legno che si possono usare come 1d2 torce", 
-		"Trovate dei pezzi di legno che si possono usare come 1d2 torce"
+		"Trovate dei pezzi di legno che si possono usare come 1d4 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d4 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d4 torce", 
+		"Trovate dei pezzi di legno che si possono usare come 1d4 torce"
     ]
 };
 
