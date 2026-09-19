@@ -25,7 +25,7 @@ const DATI_STANZA = {
         
         // Controllo dinamico allagamento (se la descrizione scelta è esattamente quella)
         if (descrizioneScelta === "Il pavimento è allagato (vedi Note)") {
-            note += "<br><br><b>PAVIMENTO ALLAGATO:</b> Muoversi in questo ambiente costa il doppio dei 2PA";
+            note += "<br><br><b>PAVIMENTO ALLAGATO:</b> Muoversi in questo ambiente costa il doppio dei PA";
         }
         
         return note;
@@ -54,6 +54,10 @@ const DATI_STANZA = {
     testoAperturaPortone: "Per Sfondare prova di VR PCN LEM +D4<br>Per Scassinare prova di PR: LEM 1-3 +1, 4-6 +2, 7-10 +4",
 
 	statTrappola: "Per Disattivare o Riarmare Trappola prova di PR:<br>LEM 1-3 Complicata 10+<br>LEM 4-6 Difficile 15+<br>LEM 7-10 Difficilissima 20+",
+	    tipoTrappola: [
+        "<b>Lame dalle pareti</b> (Danno: Tagliente, 1D10+2 PF ogni 3 LE del PG, prova PR Complicata 10+ per dimezzare i danni)",
+        "<b>Parete scorrevole</b> (Da dietro la parete fuoriescono 1D2 (D4): 1-2 Nidiate di Ratti Infestanti, 3-4 Stormi di Pipistrelli. Vedi Bestiario)"
+    ],
     
     tabellaForziere: [
         "Trovi... niente, il forziere è vuoto!",

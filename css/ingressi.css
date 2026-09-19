@@ -18,6 +18,22 @@ body {
 	align-items: center;
 }
 
+.effetto-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra perfettamente lo sticker */
+    width: 110%; /* Più grande della mappa per spuntare dai lati */
+    height: 110%;
+    z-index: 1; /* Sotto la mappa */
+    opacity: 0.6; /* Leggermente trasparente per fondersi con la pergamena */
+    object-fit: contain; /* Mantiene le proporzioni dello sticker senza distorcerlo */
+    pointer-events: none; /* Evita che l'utente clicchi accidentalmente sull'effetto invece che sulla mappa */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    transition: opacity 0.5s ease-in-out;	
+}
+
 @media (max-width: 900px) {
 	body {
 		background-size: 100% auto; /* L'immagine si adatta alla larghezza, l'altezza segue */

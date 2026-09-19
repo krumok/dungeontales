@@ -4,12 +4,31 @@ const DATI_STANZA = {
     immagine: "assets/ingresso-1t.png", 
     
     // Cambiato da 'descrizione' a 'descrizioni'
+    //descrizioni: [
+    //    "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
+    //    "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
+    //    "Un tintinnio di catene eccheggia in lontananza. Brividi gelidi vi assalgono.",
+    //    "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti."
+    //],
+    // Ogni descrizione ora ha il suo testo e la sua immagine di dettaglio/atmosfera
     descrizioni: [
-        "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
-        "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
-        "Un tintinnio di catene eccheggia in lontananza. Brividi gelidi vi assalgono.",
-        "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti."
-    ],
+        {
+            testo: "L'ambiente è scarno e sporco. Qualcuno si è accampato qui prima di voi.",
+            effettoVisivo: "assets/effetti/sporco.png"
+        },
+        {
+            testo: "Un forte odore di muffa e stoffa bagnata impregna l'aria.",
+            effettoVisivo: "assets/effetti/muffa.png"
+        },
+        {
+            testo: "Un tintinnio di catene eccheggia in lontananza. Brividi gelidi vi assalgono.",
+            effettoVisivo: "assets/effetti/catene.png"
+        },
+        {
+            testo: "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti.",
+            effettoVisivo: "assets/effetti/sangue.png" 
+        }
+    ],	
     
     illuminazione: "Luce fievole (visibilità 6m), proveniente dalle scale",
     note: "E' possibile accamparsi qui per recuperare PA, PP e Stress.",

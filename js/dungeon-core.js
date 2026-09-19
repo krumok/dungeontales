@@ -19,7 +19,9 @@ const selectOne = (arr) => {
 // --- 3. LOGICA DI GENERAZIONE ---
 function avviaGenerazione(dati) {
     const outputDiv = document.getElementById('output-area');
-    const imgElement = document.querySelector('.img-wrapper img');
+    //const imgElement = document.querySelector('.img-wrapper img');
+	const imgElement = document.querySelector('.img-wrapper img.mappa-img');
+    const effettoImgElement = document.getElementById('effetto-atmosfera');
     
     if(imgElement && dati.immagine) imgElement.src = dati.immagine;
 
@@ -39,6 +41,23 @@ function avviaGenerazione(dati) {
             sezioneTrappola = `<p class="basepg"><b>#6</b> <span class="titsez">TRAPPOLA:</span> ASSENTE ${getTirid(dati.datiTrappola.dado, tiroTrappola)}</p>`;
         }
     }
+	
+	const descrizioneScelta = selectOne(dati.descrizioni);
+    let testoDescrizione = "";
+    
+    if (descrizioneScelta && typeof descrizioneScelta === 'object') {
+        testoDescrizione = descrizioneScelta.testo;
+        
+        // Se c'è un'immagine di effetto e l'elemento HTML esiste, la mostriamo
+        if (effettoImgElement && descrizioneScelta.effettoVisivo) {
+            effettoImgElement.src = descrizioneScelta.effettoVisivo;
+            effettoImgElement.style.display = "block"; // La rende visibile
+        }
+    } else {
+        // Fallback nel caso in cui in qualche vecchio file ci sia ancora una stringa semplice
+        testoDescrizione = descrizioneScelta || "";
+        if (effettoImgElement) effettoImgElement.style.display = "none";
+    }	
 
     // --- 2. SCALE (#4) ---
     let testoScale = "";
@@ -92,7 +111,7 @@ function avviaGenerazione(dati) {
 
     // Costruzione HTML
     let html = `
-        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${selectOne(dati.descrizioni)}"</span></p>
+        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${testoDescrizione}"</span></p>
         <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${illuminazioneFinale}</p>
         <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${noteFinali}${extraNote}</p>
         <p class="basepg"><b>#4</b> <span class="titsez">SCALE:</span><br>${testoScale}</p>
