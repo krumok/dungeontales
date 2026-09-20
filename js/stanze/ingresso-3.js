@@ -10,6 +10,9 @@ const DATI_STANZA = {
         "Una dozzina di teschi umanoidi sono posizionati all'interno di apposite nicchie."
     ],
     
+    // Immagine nel box descrizione (stesso ordine di "descrizioni"; null = nessuna)
+    immaginiDescrizione: [null, null, null, "assets/motivi/teschi.webp"],
+
     illuminazione: "Luce scarsa (visibilità 3m), proveniente dalle scale",
     note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     scale: "Solo quelle di ingresso",

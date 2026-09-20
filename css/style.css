@@ -329,6 +329,24 @@ body {
     z-index: 9999; /* Lo tiene sopra gli altri elementi */
 }
 
+/* ===== Box descrizione con immagine (ingressi e, in futuro, stanze) ===== */
+.desc-img {
+    --h-img: 84px;                               /* altezza dell'immagine su smartphone */
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    background-position: right center;
+    min-height: 112px;
+    overflow: hidden;
+}
+.desc-img .desc-testo {
+    display: block;
+    width: fit-content;
+    max-width: 64%;
+    background: #fff;
+    box-shadow: 0 0 9px 11px #fff;               /* bordo bianco sfumato: nessun taglio netto sull'immagine */
+}
+
 /* Mobile Optimization */
 @media screen and (max-width: 600px) {
     body { font-size: 12pt; }
@@ -348,4 +366,13 @@ body {
 	.mart40 {
 		margin-top:40px;
 	}	
+
+    .desc-img {
+        min-height: 0;
+        padding-bottom: calc(var(--h-img) + 12px);           /* spazio per l'immagine sotto il testo */
+        background-size: auto var(--h-img);
+        background-position: right 4px bottom 6px;
+    }
+    .desc-img .desc-testo { max-width: 100%; box-shadow: none; }
+
 }

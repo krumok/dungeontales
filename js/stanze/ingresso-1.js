@@ -10,6 +10,9 @@ const DATI_STANZA = {
         "Macchie di sangue e fango, sono sparse sul pavimento e sulle pareti."
     ],
     
+    // Immagine nel box descrizione (stesso ordine di "descrizioni"; null = nessuna)
+    immaginiDescrizione: [null, null, "assets/motivi/catene.webp", null],
+
     illuminazione: "Luce fievole (visibilità 6m), proveniente dalle scale",
     note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
     

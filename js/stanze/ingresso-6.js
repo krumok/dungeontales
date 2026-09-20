@@ -12,6 +12,9 @@ const DATI_STANZA = {
         "La cera di candele consumate ricopre una mezza dozzina di teschi umani al centro della stanza."
     ],
     
+    // Immagine nel box descrizione (stesso ordine di "descrizioni"; null = nessuna)
+    immaginiDescrizione: [null, null, null, "assets/motivi/teschi.webp"],
+
     // Questo ingresso non ha la sezione SCALE: Collegamenti è la sezione #4
     senzaScale: true,
 

@@ -367,6 +367,27 @@
             return righe;
         }
 
+
+        // Immagini nel box descrizione: elenco lungo come le descrizioni e file davvero presenti
+        async function righeImmagini(d) {
+            if (!d.immaginiDescrizione) return [];
+            const r = righeConfronto();
+            const lista = d.immaginiDescrizione;
+            if (lista.length !== d.descrizioni.length) {
+                r.aggiungi("Immagini descrizione: elenco di " + lista.length + " voci, le descrizioni sono " + d.descrizioni.length, 100, 0);
+            }
+            const files = lista.filter(x => x);
+            let trovati = 0;
+            for (const f of files) {
+                try {
+                    const risposta = await fetch(f + "?t=" + Date.now(), { method: "HEAD" });
+                    if (risposta.ok) trovati++;
+                } catch (e) { /* file non raggiungibile */ }
+            }
+            r.aggiungi("Immagini descrizione: file trovati (" + files.length + " collegati)", 100, files.length ? pc(trovati, files.length) : 100);
+            return r;
+        }
+
         // ================= VISUALIZZAZIONE =================
         function tabellaHtml(righe) {
             const f = (x) => x.toFixed(1).replace(".", ",") + "%";
@@ -421,6 +442,7 @@
                     try {
                         const d = await caricaIngresso(n);
                         const righe = confrontaIngresso(motore, d, misuraIngresso(motore, d, N), ATTESI_ING[String(n)]);
+                        righe.push(...await righeImmagini(d));
                         totaleKo += righe.filter(r => !r.ok).length;
                         box.insertAdjacentHTML("beforeend", bloccoHtml("Ingresso " + n, righe));
                     } catch (e) {

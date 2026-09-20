@@ -10,6 +10,8 @@
 //   illuminazionePerDescrizione  lista parallela a "descrizioni": la luce dipende dalla
 //                             descrizione uscita (se manca si usa "illuminazione")
 //   risorsaSX / risorsaDX     cancelli con oggetto (D6 = 6), vedi calcolaCancelliIngresso
+//   immaginiDescrizione       lista parallela a "descrizioni": percorso dell'immagine da mostrare nel
+//                             box descrizione (null = nessuna immagine), es. "assets/motivi/catene.webp"
 // =====================================================================
 
 // --- 1. PROTEZIONE E SICUREZZA ---
@@ -113,6 +115,15 @@ function scegliDescrizione(dati) {
     return { indice: indice, testo: dati.descrizioni[indice] };
 }
 
+// Box #1 DESCRIZIONE. Se la descrizione uscita ha un'immagine, il testo va dentro ".desc-testo"
+// e l'immagine diventa lo sfondo del box (stile in css/style.css, classe ".desc-img").
+function htmlDescrizioneIngresso(dati, descrizione) {
+    const img = dati.immaginiDescrizione && dati.immaginiDescrizione[descrizione.indice];
+    const contenuto = `<b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${descrizione.testo}"</span>`;
+    if (!img) return `<p class="basep">${contenuto}</p>`;
+    return `<p class="basep desc-img" style="background-image:url('${img}')"><span class="desc-testo">${contenuto}</span></p>`;
+}
+
 // Illuminazione: se l'ingresso ha "illuminazionePerDescrizione" dipende dalla descrizione uscita
 function calcolaIlluminazioneIngresso(dati, indiceDescrizione, haTrappola) {
     let testo = (dati.illuminazionePerDescrizione && dati.illuminazionePerDescrizione[indiceDescrizione]) || dati.illuminazione;
@@ -159,7 +170,7 @@ function avviaGenerazione(dati) {
 
     // Costruzione HTML
     let html = `
-        <p class="basep"><b>#1</b> <span class="titsez">DESCRIZIONE:</span><br><span class="descp">"${descrizione.testo}"</span></p>
+        ${htmlDescrizioneIngresso(dati, descrizione)}
         <p class="basepg"><b>#2</b> <span class="titsez">ILLUMINAZIONE:</span><br>${illuminazioneFinale}</p>
         <p class="basep"><b>#3</b> <span class="titsez">NOTE:</span><br>${noteFinali}${extraNote}</p>
         ${htmlScale}
