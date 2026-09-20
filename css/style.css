@@ -331,7 +331,7 @@ body {
 
 /* ===== Box descrizione con immagine (ingressi e, in futuro, stanze) ===== */
 .desc-img {
-    --h-img: 84px;                               /* altezza dell'immagine su smartphone */
+    --h-img: 80px;                               /* altezza dell'immagine su smartphone */
     background-color: #fff;
     background-repeat: no-repeat;
     background-size: auto 100%;
