@@ -113,7 +113,7 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
     letter-spacing: 1px;
 }
 
-#dungeon-tag-overlay span {
+#dungeon-tag-overlay .dungeon-label {
     font-weight: normal;
     opacity: 0.8;
     margin-right: 5px;
@@ -194,11 +194,54 @@ ul.dropdown-level-1, ul.dropdown-level-2, ul.dropdown-level-3 {
         transform: rotate(180deg);
     }	
 	
-	#dungeon-tag-overlay {
-        top: 60px;
-        text-align: center;
+    /* Hamburger a sinistra */
+    .menu-toggle {
+        width: 25px;                     /* si tocca solo l'icona (più il suo padding) */
+    }
+
+    .bar {
+        margin: 5px 0;                   /* barre allineate a sinistra */
+    }
+
+    /* Etichetta del dungeon: nella barra, in alto a destra, su due righe */
+    #dungeon-tag-overlay {
+        top: 6px;
+        right: 8px;
+        left: auto;
+        z-index: 2100;                   /* sopra la barra del menu (2000) */
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        max-width: 55vw;                 /* larghezza limitata: i nomi lunghi vanno a capo */
+        padding: 4px 8px;
+        border-radius: 6px;
         font-size: 0.65rem;
-		right:auto;
-		left:auto;
+        line-height: 1.25;
+        text-align: left;
+        letter-spacing: 0.5px;
+    }
+
+    #dungeon-tag-overlay .dungeon-testo {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    #dungeon-tag-overlay .dungeon-label {
+        display: block;
+        margin: 0;
+    }
+
+    #dungeon-tag-overlay .dungeon-nome {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;           /* al massimo 2 righe per il nome, poi "..." */
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        overflow-wrap: anywhere;
+    }
+
+    #dungeon-tag-overlay button {
+        margin-left: 0 !important;
+        flex: none;
     }
 }		

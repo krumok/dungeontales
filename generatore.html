@@ -182,24 +182,25 @@
 				sessioni[nome] = [];
 				localStorage.setItem('dungeon_sessions', JSON.stringify(sessioni));
 			}
-
-			// --- CORREZIONE ETICHETTA ---
-			let overlay = document.getElementById('dungeon-tag-overlay');
+ 
+	//		// --- CORREZIONE ETICHETTA ---
+	//		let overlay = document.getElementById('dungeon-tag-overlay');
 			
-			// Se l'overlay non esiste (perché avevamo appena chiuso la sessione), lo creiamo
-			if (!overlay) {
-				overlay = document.createElement('div');
-				overlay.id = 'dungeon-tag-overlay';
-				document.body.appendChild(overlay);
-			}
-
-			// Reinseriamo il contenuto includendo il tasto X (esattamente come in menu.js)
-			overlay.innerHTML = `
-				<span>Dungeon:</span> ${nome}
-				<button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1.2rem; line-height:1;">&times;</button>
-			`;
-			// ----------------------------
-
+	//		// Se l'overlay non esiste (perché avevamo appena chiuso la sessione), lo creiamo
+	//		if (!overlay) {
+	//			overlay = document.createElement('div');
+	//			overlay.id = 'dungeon-tag-overlay';
+	//			document.body.appendChild(overlay);
+	//		}
+//
+//			// Reinseriamo il contenuto includendo il tasto X (esattamente come in menu.js)
+//			overlay.innerHTML = `
+//				<span>Dungeon:</span> ${nome}
+//				<button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1.2rem; line-height:1;">&times;</button>
+//			`;
+//			// ----------------------------
+			mostraEtichettaDungeon(nome);
+ 
 			document.getElementById('modal-sessione').style.display = 'none';
 		}
 		

@@ -6,15 +6,7 @@ fetch('menu.html')
 		if (!window.location.pathname.includes('elencoambienti.html') && !window.location.pathname.includes('istruzioni.html')) {
 			const nomeDungeon = localStorage.getItem('current_dungeon_name');
 			
-			if (nomeDungeon) {
-				const tagDungeon = document.createElement('div');
-				tagDungeon.id = 'dungeon-tag-overlay';
-				tagDungeon.innerHTML = `
-					<span>Dungeon:</span> ${nomeDungeon}
-					<button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1rem; line-height:1;">&times;</button>
-				`;
-				document.body.appendChild(tagDungeon);
-			}
+			if (nomeDungeon) mostraEtichettaDungeon(nomeDungeon);
 		}
 
         const mobileMenu = document.getElementById('mobile-menu');
@@ -62,6 +54,23 @@ fetch('menu.html')
             }
         });
     });
+
+// Crea (o aggiorna) l'etichetta con il nome del dungeon corrente.
+// Il nome è inserito come testo semplice, così apostrofi, virgolette o simboli < > non rompono la pagina.
+// Usata sia da questo file sia da generatore.html quando si crea un nuovo dungeon.
+function mostraEtichettaDungeon(nomeDungeon) {
+    let tag = document.getElementById('dungeon-tag-overlay');
+    if (!tag) {
+        tag = document.createElement('div');
+        tag.id = 'dungeon-tag-overlay';
+        document.body.appendChild(tag);
+    }
+    tag.innerHTML = `
+        <span class="dungeon-testo"><span class="dungeon-label">Dungeon:</span> <span class="dungeon-nome"></span></span>
+        <button onclick="chiudiSessioneDungeon()" style="margin-left:10px; background:none; border:none; color:white; cursor:pointer; font-weight:bold; font-size:1rem; line-height:1;">&times;</button>
+    `;
+    tag.querySelector('.dungeon-nome').textContent = nomeDungeon;
+}
 
 // Funzione chiamata dal tasto "X" sull'etichetta
 function chiudiSessioneDungeon() {
