@@ -11,7 +11,7 @@ const DATI_STANZA = {
     ],
     
     // Immagine nel box descrizione (stesso ordine di "descrizioni"; null = nessuna)
-    immaginiDescrizione: [null, "assets/motivi/muffa.webp", "assets/motivi/catene.webp", "assets/motivi/sangue-fango.webp"],
+    immaginiDescrizione: [null, "assets/motivi/muffa.webp", "assets/motivi/catene.jpg", "assets/motivi/sangue-fango.webp"],
 
     illuminazione: "Luce fievole (visibilità 6m), proveniente dalle scale",
     note: "E' possibile accamparsi qui per recuperare PF, PP, PA e Stress.",
